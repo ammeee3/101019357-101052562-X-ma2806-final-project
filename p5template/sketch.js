@@ -1,5 +1,8 @@
 //sprites
+let player;
 let playerSprite;
+let playerSpeed = 5;
+let playerSize = tileSize;
 let tilemap = [];
 let numDown = 10;
 let numAcross = 7;
@@ -43,7 +46,22 @@ function preload() {
 }
 
 function setup() {
+  createCanvas(500, 500);
+  let tileID = 0; 
 
+  for (let across = 0; across < numAcross; across++) {
+      tilemap[across] = [];
+      for (let down = 0; down < numDown; down++) {
+
+          let textureNum = graphicMap[down][across];
+
+          tilemap[across][down] = new Tile(textures[textureNum], across, down, tileSize, tileID);
+
+          tileID++;
+      }
+  }
+
+  player = new Player(playerSprite, 3, 4, tileSize, playerSpeed, tileSize, tileRules);
 }
 
 function draw() {
@@ -59,26 +77,95 @@ function draw() {
   player.move();
 }
 
+function keyPressed() {
+  player.setDirection();
+}
+
 class Player{
-  constructor(sprite, x, y, sizeX, sizeY, speed){
+  constructor(sprite, startAcross, startDown, size, speed, tileSize, tileRules) {
     this.sprite = sprite;
-    this.x = x;
-    this.y = y;
-    this.sizeX - sizeX;
-    this.sizeY - sizeY;
-    this.speed - speed;
-  }
-  display() {
-    Image(this.sprite, this.x, this.y, this.sizeX, this.sizeY);
+    this.across = startAcross;
+    this.down = startDown;
+    this.xPos = this.across * tileSize;
+    this.yPos = this.down * tileSize;
+    this.size = size;
+    this.speed = speed;
+    this.tileRules = tileRules;
+    this.tileSize = tileSize;
+    this.dirX = 0;
+    this.dirY = 0;
+    this.isMoving = false;
+    this.tx = this.xPos; 
+    this.ty = this.yPos;
+}
+setDirection() {
+  if (!this.isMoving) {
+     
+      if (key === "w") {
+          this.dirX = 0;
+          this.dirY = -1; 
+      }
+
+      if (key === "s") {
+          this.dirX = 0;
+          this.dirY = 1; 
+      }
+
+      if (key === "a") {
+          this.dirX = -1; 
+          this.dirY = 0; 
+      }
+
+      if (key === "d") {
+          this.dirX = 1; 
+          this.dirY = 0;
+      }
+      this.checkTargetTile();
   }
 }
 
-function movePlayer() {
-  case 'w':
-    if (
-      playerCurrentIndex
-    )
+checkTargetTile() {
+  this.across = Math.floor(this.xPos / this.tileSize);
+  this.down = Math.floor(this.yPos / this.tileSize);
+
+  let nextTileHorizontal = this.across + this.dirX;
+  let nextTileVertical = this.down + this.dirY;
+
+  
+  if (
+      nextTileHorizontal >= 0 && 
+      nextTileHorizontal < numAcross && 
+      nextTileVertical >= 0 && 
+      nextTileVertical < numDown 
+  ) {
+      if (this.tileRules[nextTileVertical][nextTileHorizontal] != 1) { 
+          this.tx = nextTileHorizontal * this.tileSize;
+          this.ty = nextTileVertical * this.tileSize;
+          this.isMoving = true;
+      }
+  }
 }
+
+move() {
+  if (this.isMoving) {
+      this.xPos += this.speed * this.dirX;
+      this.yPos += this.speed * this.dirY;
+
+      if (this.xPos === this.tx && this.yPos === this.ty) {
+          this.isMoving = false;
+          this.dirX = 0;
+          this.dirY = 0;
+      }
+  }
+}
+  display() {
+    imageMode(CORNER);
+    image(this.sprite, this.xPos, this.yPos, this.size, this.size);
+  }
+}
+
+
+
 
 
 //monsters (we will add this later)
