@@ -138,7 +138,7 @@ checkTargetTile() {
       nextTileVertical >= 0 && 
       nextTileVertical < numDown 
   ) {
-      if (this.tileRules[nextTileVertical][nextTileHorizontal] != 1) { 
+      if (this.tileRules[nextTileVertical][nextTileHorizontal] == 0 || this.tileRules[nextTileVertical][nextTileHorizontal] == 4) { //can only move to next tile if it is an empty floor tile or the exit
           this.tx = nextTileHorizontal * this.tileSize;
           this.ty = nextTileVertical * this.tileSize;
           this.isMoving = true;
@@ -163,7 +163,6 @@ move() {
     image(this.sprite, this.xPos, this.yPos, this.size, this.size);
   }
 }
-
 
 
 
