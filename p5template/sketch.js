@@ -101,22 +101,22 @@ class Player{
 setDirection() {
   if (!this.isMoving) {
      
-      if (key === "w") {
+      if (key === "w") { //if w key is pressed, moves player upwards
           this.dirX = 0;
-          this.dirY = -1; 
+          this.dirY = -1;  
       }
 
-      if (key === "s") {
+      if (key === "s") { //if s key is pressed, moves player backwards down the Y axis
           this.dirX = 0;
           this.dirY = 1; 
       }
 
-      if (key === "a") {
+      if (key === "a") { //if a key is pressed, moves player left along the x axis
           this.dirX = -1; 
           this.dirY = 0; 
       }
 
-      if (key === "d") {
+      if (key === "d") { //if d key is pressed, moves player right along the x axis
           this.dirX = 1; 
           this.dirY = 0;
       }
