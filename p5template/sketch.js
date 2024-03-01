@@ -164,6 +164,35 @@ move() {
   }
 }
 
+class Tile {
+  constructor(texture, across, down, tileSize, tileID) {
+      this.texture = texture;
+      this.across = across; 
+      this.down = down;
+      this.xPos = across * tileSize;
+      this.yPos = down * tileSize; 
+      this.tileSize = tileSize;
+      this.tileID = tileID;
+  }
+
+  display() {
+     
+      noStroke();
+      image(this.texture, this.xPos, this.yPos, this.tileSize, this.tileSize)
+  }
+
+  debug() {
+      stroke(245);
+      noFill();
+      rect(this.xPos, this.yPos, this.tileSize, this.tileSize);
+
+      noStroke();
+      fill(255);
+      textAlign(LEFT, TOP);
+      
+      text(this.tileID, this.xPos, this.yPos);
+  } 
+}
 
 
 
