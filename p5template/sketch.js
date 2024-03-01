@@ -80,7 +80,9 @@ function movePlayer() {
     )
 }
 
-//class Enemy{
+
+//monsters (we will add this later)
+//class Enemy{ 
   //constructor(sprite, x, y, size, size, speed){
     //this.sprite = sprite;
     // this.x = x;
