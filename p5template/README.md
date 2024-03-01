@@ -1,6 +1,7 @@
 cave crawler
 
-BY AMY BARCLAY 2407860, SCOTT 2403536, EMILIA 101019357
+BY THE CAVE DWELLERS
+MEMBERS: AMY BARCLAY 2407860, SCOTT 2403536, EMILIA ALEKSANDROWICZ 101019357
 
 OVERVIEW
 Our idea for a game is a cave crawler, with the main goal of the player to escape by navigating throught the cave, using your flashlight to avoid traps and deter monsters
@@ -11,7 +12,7 @@ THEMES
 
 GAME DESIGN
 At the current stage of our project, the player is able to move around 
-In the future, 
+In the future, we are aiming to add a monster enemy, that spawns along the edge of the map and works its way towards the player, that the player will need to shine their flashlight at in order to
 
 NARRATIVE
 
