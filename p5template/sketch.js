@@ -2,12 +2,12 @@
 let player;
 let playerSprite;
 let playerSpeed = 5;
-let tileSize = 50; // Move tileSize to the top
+let tileSize = 50;
 let playerSize = tileSize;
 let tilemap = [];
 let numDown = 10;
-
 let numAcross = 7;
+let textures = [];
 
 let graphicMap = [
   [3, 3, 3, 4, 3, 3, 3], //1
@@ -20,7 +20,7 @@ let graphicMap = [
   [3, 0, 0, 0, 0, 0, 3], //8
   [3, 2, 0, 0, 0, 2, 3], //9
   [3, 3, 3, 3, 3, 3, 3]  //10
-]
+];
 
 let tileRules = [
   [3, 3, 3, 4, 3, 3, 3], //1
