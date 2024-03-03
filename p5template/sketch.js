@@ -2,11 +2,11 @@
 let player;
 let playerSprite;
 let playerSpeed = 5;
+let tileSize = 75;
 let playerSize = tileSize;
 let tilemap = [];
 let numDown = 10;
 let numAcross = 7;
-let tileSize = 50;
 let textures = [];
 
 let graphicMap = [
@@ -20,7 +20,7 @@ let graphicMap = [
   [3, 0, 0, 0, 0, 0, 3], //8
   [3, 2, 0, 0, 0, 2, 3], //9
   [3, 3, 3, 3, 3, 3, 3]  //10
-]
+];
 
 let tileRules = [
   [3, 3, 3, 4, 3, 3, 3], //1
@@ -46,7 +46,7 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(500, 500);
+  createCanvas(525, 750);
   let tileID = 0; 
 
   for (let across = 0; across < numAcross; across++) {
@@ -209,4 +209,3 @@ class Tile {
     //Image(this.sprite, this.x, this.y, this.size, this.size);
   //}
 //}
-
