@@ -20,7 +20,7 @@ let graphicMap = [
   [3, 0, 0, 0, 0, 0, 3], //8
   [3, 2, 0, 0, 0, 2, 3], //9
   [3, 3, 3, 3, 3, 3, 3]  //10
-];
+]
 
 let tileRules = [
   [3, 3, 3, 4, 3, 3, 3], //1
@@ -52,8 +52,9 @@ function setup() {
   for (let across = 0; across < numAcross; across++) {
       tilemap[across] = [];
       for (let down = 0; down < numDown; down++) {
-
-          let textureNum = graphicMap[down][across];
+        let x = across * tileSize;
+        let y = down * tileSize;
+        let textureNum = graphicMap[down][across];
 
           tilemap[across][down] = new Tile(textures[textureNum], across, down, tileSize, tileID);
 
