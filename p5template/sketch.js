@@ -50,13 +50,14 @@ function preload() {
   textures[2] = loadImage("hole.png");
   textures[3] = loadImage("wall.png");
   textures[4] = loadImage("exit.png");
-  heart = loadImage("heart.png")
-
-  playerSprites = {
-  up: loadImage("player.png"),
-  down: loadImage("back.png"),
-  left: loadImage("left.png"),
-  right: loadImage("right.png")
+  heart = loadImage("heart.png");
+  
+    playerSprites = {
+    up: loadImage("player.png"),
+    down: loadImage("back.png"),
+    left: loadImage("left.png"),
+    right: loadImage("right.png")
+  };
 }
 }
 
@@ -138,7 +139,7 @@ function win(){
   setTimeout(resetGame(), 5000); //why is text disappearing immediately?
 }
 
-class Player{
+class Player {
   constructor(sprites, startAcross, startDown, size, speed, tileSize, tileRules) {
     this.sprites = sprites;
     this.currentSprite = this.sprites.down;
@@ -155,6 +156,7 @@ class Player{
     this.isMoving = false;
     this.tx = this.xPos; 
     this.ty = this.yPos;
+  }
 }
 
 setDirection(key) {
