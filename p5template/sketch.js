@@ -157,17 +157,21 @@ class Player{
     this.ty = this.yPos;
 }
 
-setDirection() {
+setDirection(key) {
   if (!this.isMoving) {
      
       if (key === "w" || key === "ArrowUp") { //if w key is pressed, moves player upwards
           this.dirX = 0;
           this.dirY = -1;  
+          this.currentSprite = this.sprites.up; //sprite faces up
+
       }
 
       if (key === "s" || key === "ArrowDown") { //if s key is pressed, moves player backwards down the Y axis
           this.dirX = 0;
           this.dirY = 1; 
+          this.currentSprite = this.sprites.down; //sprite faces down
+
       }
 
       if (key === "a" || key === "ArrowLeft") { //if a key is pressed, moves player left along the x axis
