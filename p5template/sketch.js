@@ -59,7 +59,6 @@ function preload() {
     right: loadImage("right.png")
   };
 }
-}
 
 function setup() {
   createCanvas(525, 850); //size of game
