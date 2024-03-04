@@ -53,7 +53,7 @@ function preload() {
   heart = loadImage("heart.png")
 
   
-  playerSprite = loadImage("player.png");
+  playerSprites = loadImage("player.png");
   left: loadImage("left.png")
   right: loadImage("right.png")
   
