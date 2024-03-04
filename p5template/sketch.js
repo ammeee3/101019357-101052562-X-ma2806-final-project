@@ -1,7 +1,7 @@
 //sprites
 let player;
 let heart;
-let playerSprite;
+let playerSprites; {};
 let playerSpeed = 5;
 let tileSize = 75;
 let playerSize = tileSize;
