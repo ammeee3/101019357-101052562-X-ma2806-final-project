@@ -106,18 +106,17 @@ function currentLives(){ //displays how many lives are left
 }
 
 function deathCheck() {
-  //noLoop();
   player = new Player(playerSprite, 3, 8, tileSize, playerSpeed, tileSize, tileRules);
-  lives = lives - 1; //why is it deleting all lives at once?
+  lives = lives - 1; 
   currentLives();
-  if (lives = 0) {
+  if (lives < 0) {
     lose()
   }
 }
 
 function lose(){
-  //background(168, 50, 72); //red
-  //print("You lose")
+  background(100, 50, 75); 
+  print("You lose")
   textSize(60);
   fill(25); //black
   text('You lose', 250, 350);
