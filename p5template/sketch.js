@@ -1,5 +1,6 @@
 //sprites
 let player;
+let heart;
 let playerSprite;
 let playerSpeed = 5;
 let tileSize = 75;
@@ -8,6 +9,9 @@ let tilemap = [];
 let numDown = 10;
 let numAcross = 7;
 let textures = [];
+let lives = 3;
+
+
 
 let graphicMap = [
   [3, 3, 3, 4, 3, 3, 3], //1
@@ -35,6 +39,10 @@ let tileRules = [
   [3, 3, 3, 3, 3, 3, 3]  //10
 ]
 
+function resetGame() {
+  lives = 3
+  player = new Player(playerSprite, 3, 8, tileSize, playerSpeed, tileSize, tileRules);
+}
 
 function preload() {
   textures[0] = loadImage("floor.png");
@@ -42,11 +50,15 @@ function preload() {
   textures[2] = loadImage("hole.png");
   textures[3] = loadImage("wall.png");
   textures[4] = loadImage("exit.png");
+  heart = loadImage("heart.png")
   playerSprite = loadImage("player.png");
+  
 }
 
 function setup() {
-  createCanvas(525, 750);
+  createCanvas(525, 850); //size of game
+  //lives = 3; //player starts with 3 lives
+  
   let tileID = 0; 
 
   for (let across = 0; across < numAcross; across++) {
@@ -62,24 +74,64 @@ function setup() {
       }
   }
 
-  player = new Player(playerSprite, 3, 4, tileSize, playerSpeed, tileSize, tileRules);
+  player = new Player(playerSprite, 3, 8, tileSize, playerSpeed, tileSize, tileRules); //spawns new player in tile number 38
 }
 
 function draw() {
-  background(0);
+  background(255);
   for (let across = 0; across < numAcross; across++) {
       for (let down = 0; down < numDown; down++) {
           tilemap[across][down].display(); 
           tilemap[across][down].debug(); 
       }
   }
-
+ 
   player.display();
   player.move();
+  currentLives();
+  
 }
 
 function keyPressed() {
   player.setDirection();
+}
+
+function currentLives(){ //displays how many lives are left
+  textSize(40);
+  fill(25);
+  text("Lives:", 10, 760)
+    for (let i = 0; i < lives; i++){
+      image(heart, i*50, 800, 50, 50)
+  }
+}
+
+function deathCheck() {
+  //noLoop();
+  player = new Player(playerSprite, 3, 8, tileSize, playerSpeed, tileSize, tileRules);
+  lives = lives - 1; //why is it deleting all lives at once?
+  currentLives();
+  if (lives = 0) {
+    lose()
+  }
+}
+
+function lose(){
+  //background(168, 50, 72); //red
+  //print("You lose")
+  textSize(60);
+  fill(25); //black
+  text('You lose', 250, 350);
+
+  resetGame(); //start again
+}
+
+function win(){
+  print("You win!")
+  background(0,255,0);
+  textSize(60);
+  fill(255,0,0); //red text
+  text('You win!', 250, 350);
+  setTimeout(resetGame(), 5000); //why is text disappearing immediately?
 }
 
 class Player{
@@ -99,6 +151,7 @@ class Player{
     this.tx = this.xPos; 
     this.ty = this.yPos;
 }
+
 setDirection() {
   if (!this.isMoving) {
      
@@ -131,7 +184,6 @@ checkTargetTile() {
 
   let nextTileHorizontal = this.across + this.dirX;
   let nextTileVertical = this.down + this.dirY;
-
   
   if (
       nextTileHorizontal >= 0 && 
@@ -139,14 +191,23 @@ checkTargetTile() {
       nextTileVertical >= 0 && 
       nextTileVertical < numDown 
   ) {
-      if (this.tileRules[nextTileVertical][nextTileHorizontal] == 0 || this.tileRules[nextTileVertical][nextTileHorizontal] == 4) { //can only move to next tile if it is an empty floor tile or the exit
+      if (this.tileRules[nextTileVertical][nextTileHorizontal] == 0) { //can only move to next tile if it is an empty floor tile, a trap or the exit
           this.tx = nextTileHorizontal * this.tileSize;
           this.ty = nextTileVertical * this.tileSize;
           this.isMoving = true;
+      } else if (this.tileRules[nextTileVertical][nextTileHorizontal] == 2) { //when you move onto a trap tile, you lose a life and game checks if you have died
+            this.tx = nextTileHorizontal * this.tileSize;
+            this.ty = nextTileVertical * this.tileSize;
+            this.isMoving = true;
+            deathCheck()          //player loses a life and dies if lives are 0
+      } else if (this.tileRules[nextTileVertical][nextTileHorizontal] == 4) { 
+            this.tx = nextTileHorizontal * this.tileSize;
+            this.ty = nextTileVertical * this.tileSize;
+            this.isMoving = true;
+            win()         
       }
   }
 }
-
 move() {
   if (this.isMoving) {
       this.xPos += this.speed * this.dirX;
