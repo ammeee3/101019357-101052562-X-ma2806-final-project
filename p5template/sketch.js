@@ -138,8 +138,8 @@ function win(){
 }
 
 class Player{
-  constructor(sprite, startAcross, startDown, size, speed, tileSize, tileRules) {
-    this.sprite = sprites;
+  constructor(sprites, startAcross, startDown, size, speed, tileSize, tileRules) {
+    this.sprites = sprites;
     this.currentSprite = this.sprites.down;
     this.across = startAcross;
     this.down = startDown;
