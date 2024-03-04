@@ -157,7 +157,6 @@ class Player {
     this.tx = this.xPos; 
     this.ty = this.yPos;
   }
-}
 
 setDirection(key) {
   if (!this.isMoving) {
@@ -166,29 +165,28 @@ setDirection(key) {
           this.dirX = 0;
           this.dirY = -1;  
           this.currentSprite = this.sprites.up; //sprite faces up
-
-      }
+          }
 
       if (key === "s" || key === "ArrowDown") { //if s key is pressed, moves player backwards down the Y axis
           this.dirX = 0;
           this.dirY = 1; 
           this.currentSprite = this.sprites.down; //sprite faces down
-
-      }
+          }
 
       if (key === "a" || key === "ArrowLeft") { //if a key is pressed, moves player left along the x axis
           this.dirX = -1; 
           this.dirY = 0;
           this.currentSprite = this.sprites.left; //sprite faces left
-      }
+         }
 
       if (key === "d" || key === "ArrowRight") { //if d key is pressed, moves player right along the x axis
           this.dirX = 1; 
           this.dirY = 0;
           this.currentSprite = this.sprites.right; //sprite faces right
-
-      }
+          }
+    
       this.checkTargetTile();
+    }
   }
 }
 
