@@ -54,8 +54,8 @@ function preload() {
 
   
   playerSprites = loadImage("player.png");
-  left: loadImage("left.png")
-  right: loadImage("right.png")
+  left: loadImage("left.png");
+  right: loadImage("right.png");
   
 }
 
@@ -229,7 +229,7 @@ move() {
 }
   display() {
     imageMode(CORNER);
-    image(this.sprite, this.xPos, this.yPos, this.size, this.size);
+    image(this.cuurentSprite, this.xPos, this.yPos, this.size, this.size);
   }
 }
 
