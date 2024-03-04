@@ -233,7 +233,7 @@ move() {
 }
   display() {
     imageMode(CORNER);
-    image(this.cuurentSprite, this.xPos, this.yPos, this.size, this.size);
+    image(this.curentSprite, this.xPos, this.yPos, this.size, this.size);
   }
 }
 
