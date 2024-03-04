@@ -51,7 +51,11 @@ function preload() {
   textures[3] = loadImage("wall.png");
   textures[4] = loadImage("exit.png");
   heart = loadImage("heart.png")
+
+  
   playerSprite = loadImage("player.png");
+  left: loadImage("")
+  right: loadImage("")
   
 }
 
