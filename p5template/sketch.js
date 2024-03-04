@@ -109,7 +109,7 @@ function deathCheck() {
   player = new Player(playerSprite, 3, 8, tileSize, playerSpeed, tileSize, tileRules);
   lives = lives - 1; 
   currentLives();
-  if (lives < 0) {
+  if (lives == 0) {
     lose()
   }
 }
