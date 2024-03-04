@@ -140,6 +140,7 @@ function win(){
 class Player{
   constructor(sprite, startAcross, startDown, size, speed, tileSize, tileRules) {
     this.sprite = sprite;
+    this.currentSprite = this.sprites.down;
     this.across = startAcross;
     this.down = startDown;
     this.xPos = this.across * tileSize;
@@ -170,12 +171,15 @@ setDirection() {
 
       if (key === "a" || key === "ArrowLeft") { //if a key is pressed, moves player left along the x axis
           this.dirX = -1; 
-          this.dirY = 0; 
+          this.dirY = 0;
+          this.currentSprite = this.sprites.left; //sprite faces left
       }
 
       if (key === "d" || key === "ArrowRight") { //if d key is pressed, moves player right along the x axis
           this.dirX = 1; 
           this.dirY = 0;
+          this.currentSprite = this.sprites.right; //sprite faces right
+
       }
       this.checkTargetTile();
   }
