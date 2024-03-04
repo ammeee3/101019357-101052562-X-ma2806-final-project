@@ -54,8 +54,8 @@ function preload() {
 
   
   playerSprite = loadImage("player.png");
-  left: loadImage("")
-  right: loadImage("")
+  left: loadImage("left.png")
+  right: loadImage("right.png")
   
 }
 
