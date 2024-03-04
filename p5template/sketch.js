@@ -187,6 +187,22 @@ setDirection(key) {
       this.checkTargetTile();
     }
   }
+  move() {
+  if (this.isMoving) {
+      this.xPos += this.speed * this.dirX;
+      this.yPos += this.speed * this.dirY;
+
+      if (this.xPos === this.tx && this.yPos === this.ty) {
+          this.isMoving = false;
+          this.dirX = 0;
+          this.dirY = 0;
+      }
+  }
+}
+  display() {
+    imageMode(CORNER);
+    image(this.curentSprite, this.xPos, this.yPos, this.size, this.size);
+  }
 }
 
 checkTargetTile() {
@@ -219,23 +235,7 @@ checkTargetTile() {
       }
   }
 }
-move() {
-  if (this.isMoving) {
-      this.xPos += this.speed * this.dirX;
-      this.yPos += this.speed * this.dirY;
 
-      if (this.xPos === this.tx && this.yPos === this.ty) {
-          this.isMoving = false;
-          this.dirX = 0;
-          this.dirY = 0;
-      }
-  }
-}
-  display() {
-    imageMode(CORNER);
-    image(this.curentSprite, this.xPos, this.yPos, this.size, this.size);
-  }
-}
 
 class Tile {
   constructor(texture, across, down, tileSize, tileID) {
