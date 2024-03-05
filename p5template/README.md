@@ -17,6 +17,10 @@ In the future, we are aiming to add a monster enemy, that spawns along the edge 
 NARRATIVE
 
 AESTHETIC
+8bit horror games graphics often featured with a limited colour pallete to create a retro and nostalgic atmosphere.
+Dark and eerie environment to enhance the sense of dread.
+//sound:maybe 
+low-fi, synth sound
 
 idea miro board
 https://miro.com/app/board/uXjVNl6SJyE=/?share_link_id=782537799043
