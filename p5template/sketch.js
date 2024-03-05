@@ -52,7 +52,7 @@ function preload() {
   textures[4] = loadImage("exit.png");
   heart = loadImage("heart.png");
   
-    playerSprites = {
+    playerSprite = {
     up: loadImage("player.png"),
     down: loadImage("back.png"),
     left: loadImage("left.png"),
