@@ -296,7 +296,7 @@ move() {
   }
 }
 
-class Tile {
+class Tile { //creates a tile based on the given template
   constructor(texture, across, down, tileSize, tileID) {
       this.texture = texture;
       this.across = across; 
@@ -308,19 +308,17 @@ class Tile {
   }
 
   display() {
-     
-      noStroke();
       image(this.texture, this.xPos, this.yPos, this.tileSize, this.tileSize)
   }
 
   debug() { //displays tile number grid for debugging (can be turned off)
-      stroke(245);
-      textSize(10);
+      stroke(245); //outline
+      textSize(10); //number size
       noFill();
       rect(this.xPos, this.yPos, this.tileSize, this.tileSize);
 
       noStroke();
-      fill(255);
+      fill(255); //number colour
       textAlign(LEFT, TOP);
       
       text(this.tileID, this.xPos, this.yPos);
