@@ -54,9 +54,9 @@ function preload() {
   
     playerSprites = {
     up: loadImage("player.png"),
-    down: loadImage("p5template/back.png"),
-    left: loadImage("p5template/left.png"),
-    right: loadImage("p5template/right.png")
+    down: loadImage("back.png"),
+    left: loadImage("left.png"),
+    right: loadImage("right.png")
   };
 }
 
