@@ -140,7 +140,7 @@ function win(){
 
 class Player {
   constructor(playerSprite, startAcross, startDown, size, speed, tileSize, tileRules) {
-    this.sprites = sprites;
+    this.sprites = playerSprites;
     this.currentSprite = this.sprites.down;
     this.across = startAcross;
     this.down = startDown;
@@ -155,6 +155,8 @@ class Player {
     this.isMoving = false;
     this.tx = this.xPos; 
     this.ty = this.yPos;
+
+    this.direction = "down";
   }
 
 setDirection(key) {
