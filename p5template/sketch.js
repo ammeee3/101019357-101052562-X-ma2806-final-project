@@ -267,7 +267,7 @@ checkTargetTile() {
         this.tx = nextTileHorizontal * this.tileSize;
         this.ty = nextTileVertical * this.tileSize;
         this.isMoving = true;
-        setTimeout(deathCheck, 200);  //player loses a life and dies if lives are 0
+        setTimeout(deathCheck, 300);  //player loses a life and dies if lives are 0
     } else if (this.tileRules[nextTileVertical][nextTileHorizontal] == 4) {  //moves to next tile if it is an exit tile and activates win condition
         this.tx = nextTileHorizontal * this.tileSize;
         this.ty = nextTileVertical * this.tileSize;
