@@ -77,6 +77,9 @@ function setup() {
   player = new Player(playerSprite, 3, 8, tileSize, playerSpeed, tileSize, tileRules); //spawns new player in tile number 38
 }
 
+
+
+
 function draw() {
   background(255);
   for (let across = 0; across < numAcross; across++) {
@@ -132,6 +135,7 @@ function win(){
   text('You win!', 250, 350);
   setTimeout(resetGame(), 5000); //why is text disappearing immediately?
 }
+
 
 class Player{
   constructor(sprite, startAcross, startDown, size, speed, tileSize, tileRules) {
@@ -270,3 +274,5 @@ class Tile {
     //Image(this.sprite, this.x, this.y, this.size, this.size);
   //}
 //}
+
+
