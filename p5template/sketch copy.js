@@ -95,21 +95,10 @@ function draw() {
   
   if (loseState){ //add this
     drawLose();
-    if (key == "r"); {
-      loseState = false;
-      resetGame();
-    } if( key =! "r"); {
-      loseState = true;
-    }
   }
+
   if (winState){ //add this
     drawWin();
-      if (key == "r"); {
-        resetGame()
-      }
-      if (key =! "r"); {
-        winState = true;
-      }
   }
 }
 
@@ -204,8 +193,8 @@ setDirection() {
           this.dirY = 0;
       }
       if (key === "r") { //add this
-        resetGame();
-    } 
+          resetGame();
+      } 
 
       this.checkTargetTile();
   }
