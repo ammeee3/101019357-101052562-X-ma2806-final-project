@@ -145,6 +145,7 @@ function handleLose() { //when called, the loss condition is activated
   loseState = true; 
 }
 function handleWin() { //when called, the win condition is activated
+  player = new Player(playerSprite, 3, 8, tileSize, playerSpeed, tileSize, tileRules);
   winState = true; 
 }
 
@@ -267,13 +268,12 @@ checkTargetTile() {
         this.tx = nextTileHorizontal * this.tileSize;
         this.ty = nextTileVertical * this.tileSize;
         this.isMoving = true;
-        setTimeout(deathCheck, 300);  //player loses a life and dies if lives are 0
+        setTimeout(deathCheck, 300);  //player loses a life and dies if lives are 0 (added timeout so you can see player move onto tile)
     } else if (this.tileRules[nextTileVertical][nextTileHorizontal] == 4) {  //moves to next tile if it is an exit tile and activates win condition
         this.tx = nextTileHorizontal * this.tileSize;
         this.ty = nextTileVertical * this.tileSize;
         this.isMoving = true;
-        //setTimeout(handleWin, 200);  causes win screen to appear twice?
-        handleWin();     
+        setTimeout(handleWin, 300);  //activates win condition (added timeout so you can see player move onto tile) 
         } 
     }
 }
