@@ -201,10 +201,10 @@ setDirection(key) {
       }
   }
 }
-  display() {
-    imageMode(CORNER);
-    image(this.curentSprite, this.xPos, this.yPos, this.size, this.size);
-  }
+display() {
+  imageMode(CORNER);
+  image(this.currentSprite, this.xPos, this.yPos, this.size, this.size);
+}
 }
 
 checkTargetTile() {
