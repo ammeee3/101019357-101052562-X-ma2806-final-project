@@ -135,12 +135,12 @@ function win(){
   textSize(60);
   fill(255,0,0); //red text
   text('You win!', 250, 350);
-  setTimeout(resetGame(), 5000); //why is text disappearing immediately?
+  setTimeout(resetGame,5000); //fixed the code 
 }
 
 class Player {
   constructor(playerSprite, startAcross, startDown, size, speed, tileSize, tileRules) {
-    this.sprites = playerSprites;
+    this.sprites = playerSprite;
     this.currentSprite = this.sprites.down;
     this.across = startAcross;
     this.down = startDown;
