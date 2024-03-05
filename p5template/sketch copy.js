@@ -42,6 +42,8 @@ let tileRules = [
 
 function resetGame() {
   lives = 3
+  loseState = false; // add this
+  winState = false; //add this
   player = new Player(playerSprite, 3, 8, tileSize, playerSpeed, tileSize, tileRules);
 }
 
@@ -93,9 +95,21 @@ function draw() {
   
   if (loseState){ //add this
     drawLose();
+    if (key == "r"); {
+      loseState = false;
+      resetGame();
+    } if( key =! "r"); {
+      loseState = true;
+    }
   }
   if (winState){ //add this
     drawWin();
+      if (key == "r"); {
+        resetGame()
+      }
+      if (key =! "r"); {
+        winState = true;
+      }
   }
 }
 
@@ -129,23 +143,25 @@ function handleWin() { //add this
 }
 
 function drawLose(){ //add this (rename lose)
-  background(100, 50, 75); 
-  print("You lose")
-  textSize(60);
+  background(200, 50, 75); 
+  print("You lose. Press R to play again")
+  textSize(60); //add this
   fill(25); //black
-  text('You lose', 250, 350);
-
-  resetGame(); //start again
+  text('You lose.', width/3.5, height/5);  //add this
+  textSize(35); //add this
+  text('Press R to play again.', width/5, height/3); //add this
 }
 
 function drawWin(){ //add this (rename win)
-  print("You win!")
+  print("You win! Press R to play again.")
   background(0,255,0); //background colour
-  textSize(60);
+  textSize(60); //add this
   fill(25,0,0); //text colour
-  text('You win!', 250, 350);
-  setTimeout(resetGame(), 5000); //fix this
+  text('You win!', width/3.5, height/5); //add this
+  textSize(35); //add this
+  text('Press R to play again.', width/5, height/3); //add this
 }
+
 
 class Player{
   constructor(sprite, startAcross, startDown, size, speed, tileSize, tileRules) {
@@ -187,6 +203,10 @@ setDirection() {
           this.dirX = 1; 
           this.dirY = 0;
       }
+      if (key === "r") { //add this
+        resetGame();
+    } 
+
       this.checkTargetTile();
   }
 }
