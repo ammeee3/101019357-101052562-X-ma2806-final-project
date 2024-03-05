@@ -1,7 +1,7 @@
 //sprites
 let player;
 let heart;
-let playerSprites {};
+let playerSprites = {};
 let playerSpeed = 5;
 let tileSize = 75;
 let playerSize = tileSize;
@@ -41,7 +41,7 @@ let tileRules = [
 
 function resetGame() {
   lives = 3
-  player = new Player(playerSprite, 3, 8, tileSize, playerSpeed, tileSize, tileRules);
+  player = new Player(playerSprites, 3, 8, tileSize, playerSpeed, tileSize, tileRules);
 }
 
 function preload() {
