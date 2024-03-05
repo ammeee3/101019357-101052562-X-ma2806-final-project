@@ -9,16 +9,10 @@ let tilemap = [];
 let numDown = 10;
 let numAcross = 7;
 let textures = [];
-
 let lives = 3;
 
-let playerUpSprite;
-let playerLeftSprite;
-let playerRightSprite;
-
-let loseState = false;
-let winState = false;
-
+let loseState = false; //add this
+let winState = false; //add this
 
 let graphicMap = [
   [3, 3, 3, 4, 3, 3, 3], //1
@@ -54,22 +48,20 @@ function resetGame() {
 }
 
 function preload() {
-
-  playerSprite = loadImage("player.png");
-  playerUpSprite = loadImage("player_up.png");
-  playerLeftSprite = loadImage("player_left.png");
-  playerRightSprite = loadImage("player_right.png");
-  
   textures[0] = loadImage("floor.png");
   textures[1] = loadImage("rock.png");
   textures[2] = loadImage("hole.png");
   textures[3] = loadImage("wall.png");
   textures[4] = loadImage("exit.png");
   heart = loadImage("heart.png")
+  playerSprite = loadImage("player.png");
+  
 }
 
 function setup() {
-  createCanvas(525, 850);
+  createCanvas(525, 850); //size of game
+  //lives = 3; //player starts with 3 lives
+  
   let tileID = 0; 
 
   for (let across = 0; across < numAcross; across++) {
@@ -85,23 +77,22 @@ function setup() {
       }
   }
 
-  player = new Player(playerSprite, 3, 8, tileSize, playerSpeed, tileSize, tileRules);
+  player = new Player(playerSprite, 3, 8, tileSize, playerSpeed, tileSize, tileRules); //spawns new player in tile number 38
 }
 
 function draw() {
   background(255);
-
   for (let across = 0; across < numAcross; across++) {
-    for (let down = 0; down < numDown; down++) {
-      tilemap[across][down].display(); 
-      tilemap[across][down].debug(); 
-    }
+      for (let down = 0; down < numDown; down++) {
+          tilemap[across][down].display(); 
+          tilemap[across][down].debug(); 
+      }
   }
-
+ 
   player.display();
   player.move();
   currentLives();
-
+  
   if (loseState){ //add this
     drawLose();
   }
@@ -163,13 +154,7 @@ function drawWin(){ //add this (rename win)
 
 class Player{
   constructor(sprite, startAcross, startDown, size, speed, tileSize, tileRules) {
-    //player sprites
     this.sprite = sprite;
-    this.playerUpSprite = playerUpSprite; 
-    this.playerLeftSprite = playerLeftSprite; 
-    this.playerRightSprite = playerRightSprite;
-    this.playerSprite = playerSprite;
-
     this.across = startAcross;
     this.down = startDown;
     this.xPos = this.across * tileSize;
@@ -183,60 +168,37 @@ class Player{
     this.isMoving = false;
     this.tx = this.xPos; 
     this.ty = this.yPos;
-
-
 }
+
 setDirection() {
   if (!this.isMoving) {
      
-      if (key === "w") { //if w key is pressed, moves player upwards
+      if (key === "w" || key === "ArrowUp") { //if w key is pressed, moves player upwards
           this.dirX = 0;
-          this.dirY = -1;
-          this.sprite = this.playerUpSprite; //up sprite
+          this.dirY = -1;  
       }
 
-      if (key === "s") { //if s key is pressed, moves player backwards down the Y axis
+      if (key === "s" || key === "ArrowDown") { //if s key is pressed, moves player backwards down the Y axis
           this.dirX = 0;
           this.dirY = 1; 
-          this.sprite = this.playerSprite;
       }
 
-      if (key === "a") { //if a key is pressed, moves player left along the x axis
+      if (key === "a" || key === "ArrowLeft") { //if a key is pressed, moves player left along the x axis
           this.dirX = -1; 
           this.dirY = 0; 
-          this.sprite = this.playerLeftSprite; //left sprite
       }
 
-      if (key === "d") { //if d key is pressed, moves player right along the x axis
+      if (key === "d" || key === "ArrowRight") { //if d key is pressed, moves player right along the x axis
           this.dirX = 1; 
           this.dirY = 0;
-          this.sprite = this.playerRightSprite; //right sprite
       }
-
-      if (key === "ArrowUp"){
-        this.sprite = this.playerUpSprite; //up sprite
-      }
-
-      if (key === "ArrowLeft"){
-        this.sprite = this.playerLeftSprite; //left sprite
-      }
-
-      if (key === "ArrowRight"){
-        this.sprite = this.playerRightSprite; //right sprite
-      }
-
-      if (key === "ArrowDown"){
-        this.sprite = this.playerSprite; //down sprite
-      }
-
-      if (key === "r") {
-        resetGame();
-    } 
+      if (key === "r") { //add this
+          resetGame();
+      } 
 
       this.checkTargetTile();
   }
 }
-
 
 checkTargetTile() {
   this.across = Math.floor(this.xPos / this.tileSize);
@@ -244,7 +206,6 @@ checkTargetTile() {
 
   let nextTileHorizontal = this.across + this.dirX;
   let nextTileVertical = this.down + this.dirY;
-
   
   if (
       nextTileHorizontal >= 0 && 
@@ -253,23 +214,22 @@ checkTargetTile() {
       nextTileVertical < numDown 
   ) {
       if (this.tileRules[nextTileVertical][nextTileHorizontal] == 0) { //can only move to next tile if it is an empty floor tile, a trap or the exit
-      this.tx = nextTileHorizontal * this.tileSize;
-      this.ty = nextTileVertical * this.tileSize;
-      this.isMoving = true;
-    } else if (this.tileRules[nextTileVertical][nextTileHorizontal] == 2) { //when you move onto a trap tile, you lose a life and game checks if you have died
-        this.tx = nextTileHorizontal * this.tileSize;
-        this.ty = nextTileVertical * this.tileSize;
-        this.isMoving = true;
-        deathCheck()          //player loses a life and dies if lives are 0
-    } else if (this.tileRules[nextTileVertical][nextTileHorizontal] == 4) { 
-        this.tx = nextTileHorizontal * this.tileSize;
-        this.ty = nextTileVertical * this.tileSize;
-        this.isMoving = true;
-        handleWin()      //add this    
-        } 
-    }
+          this.tx = nextTileHorizontal * this.tileSize;
+          this.ty = nextTileVertical * this.tileSize;
+          this.isMoving = true;
+      } else if (this.tileRules[nextTileVertical][nextTileHorizontal] == 2) { //when you move onto a trap tile, you lose a life and game checks if you have died
+            this.tx = nextTileHorizontal * this.tileSize;
+            this.ty = nextTileVertical * this.tileSize;
+            this.isMoving = true;
+            deathCheck()          //player loses a life and dies if lives are 0
+      } else if (this.tileRules[nextTileVertical][nextTileHorizontal] == 4) { 
+            this.tx = nextTileHorizontal * this.tileSize;
+            this.ty = nextTileVertical * this.tileSize;
+            this.isMoving = true;
+            handleWin()      //add this    
+      }
+  }
 }
-
 move() {
   if (this.isMoving) {
       this.xPos += this.speed * this.dirX;
@@ -307,7 +267,7 @@ class Tile {
 
   debug() {
       stroke(245);
-      textSize(1);
+      textSize(1); //add this
       noFill();
       rect(this.xPos, this.yPos, this.tileSize, this.tileSize);
 
@@ -318,3 +278,19 @@ class Tile {
       text(this.tileID, this.xPos, this.yPos);
   } 
 }
+
+
+
+//monsters (we will add this later)
+//class Enemy{ 
+  //constructor(sprite, x, y, size, size, speed){
+    //this.sprite = sprite;
+    // this.x = x;
+    //this.y = y;
+    //this.size - size;
+    //this.speed - speed;
+  //}
+  //display() {
+    //Image(this.sprite, this.x, this.y, this.size, this.size);
+  //}
+//}
