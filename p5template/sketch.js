@@ -305,11 +305,16 @@ class Tile { //creates a tile based on the given template
       this.yPos = down * tileSize; 
       this.tileSize = tileSize;
       this.tileID = tileID;
+      this.visible = false; // Add a visibility property
+
   }
 
   display() {
-      image(this.texture, this.xPos, this.yPos, this.tileSize, this.tileSize)
+    if (this.visible) {
+      image(this.texture, this.xPos, this.yPos, this.tileSize, this.tileSize);
+    }
   }
+  
 
   debug() { //displays tile number grid for debugging (can be turned off)
       stroke(245); //outline
@@ -322,5 +327,40 @@ class Tile { //creates a tile based on the given template
       textAlign(LEFT, TOP);
       
       text(this.tileID, this.xPos, this.yPos);
-  } 
+  }; 
+}
+function updateVisibility() {
+  for (let across = 0; across < numAcross; across++) {
+    for (let down = 0; down < numDown; down++) {
+      let distance = dist(player.across, player.down, across, down);
+
+      // Set visibility based on distance and one-block radius
+      tilemap[across][down].visible = distance <= 1;
+    }
+  }
+}
+
+function draw() {
+  background(255);
+
+  updateVisibility(); // Update tile visibility based on player position
+
+  for (let across = 0; across < numAcross; across++) {
+    for (let down = 0; down < numDown; down++) {
+      tilemap[across][down].display();
+      tilemap[across][down].debug();
+    }
+  }
+
+  player.display();
+  player.move();
+  currentLives();
+
+  if (loseState) {
+    drawLose();
+  }
+
+  if (winState) {
+    drawWin();
+  }
 }
