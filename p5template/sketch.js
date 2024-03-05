@@ -10,6 +10,8 @@ let numDown = 10;
 let numAcross = 7;
 let textures = [];
 let lives = 3;
+let timer;
+let timerDuration = 30000; //30 seconds, milliseconds
 
 
 
@@ -63,6 +65,7 @@ function preload() {
 function setup() {
   createCanvas(525, 850); //size of game
   //lives = 3; //player starts with 3 lives
+  timer = millis(); // initialize the timer
   
   let tileID = 0; 
 
@@ -88,6 +91,9 @@ function draw() {
       for (let down = 0; down < numDown; down++) {
           tilemap[across][down].display(); 
           tilemap[across][down].debug(); 
+        
+  if(millis() - timer > timeDuration) //timer reached its duration
+  timer = millis(); //resets the timer
       }
   }
  
