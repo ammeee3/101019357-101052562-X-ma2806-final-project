@@ -246,7 +246,7 @@ setDirection() {
 }
 
 
-checkTargetTile() {
+checkTargetTile() { //check and update players target tile based on its current position
   this.across = Math.floor(this.xPos / this.tileSize);
   this.down = Math.floor(this.yPos / this.tileSize);
 
@@ -278,14 +278,14 @@ checkTargetTile() {
     }
 }
 
-move() {
+move() { //move player
   if (this.isMoving) {
       this.xPos += this.speed * this.dirX;
       this.yPos += this.speed * this.dirY;
 
       if (this.xPos === this.tx && this.yPos === this.ty) {
-          this.isMoving = false;
-          this.dirX = 0;
+          this.isMoving = false; //when reached the target, player stops moving
+          this.dirX = 0; //reset direction to zero to stop further movement
           this.dirY = 0;
       }
   }
@@ -305,7 +305,7 @@ class Tile { //creates a tile based on the given template
       this.yPos = down * tileSize; 
       this.tileSize = tileSize;
       this.tileID = tileID;
-      this.visible = false; // Add a visibility property
+      this.visible = false; // add a visibility property
 
   }
 
@@ -332,10 +332,9 @@ class Tile { //creates a tile based on the given template
 function updateVisibility() {
   for (let across = 0; across < numAcross; across++) {
     for (let down = 0; down < numDown; down++) {
-      let distance = dist(player.across, player.down, across, down);
-
-      // Set visibility based on distance and one-block radius
-      tilemap[across][down].visible = distance <= 1;
+      let distance = dist(player.across, player.down, across, down); //distance between player and current tile
+      
+      tilemap[across][down].visible = distance <= 1; // set visibility based on distance and one-block radius
     }
   }
 }
