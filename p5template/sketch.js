@@ -345,8 +345,8 @@ function draw() {
 
   updateVisibility(); // Update tile visibility based on player position
 
-  for (let across = 0; across < numAcross; across++) {
-    for (let down = 0; down < numDown; down++) {
+  for (let across = 0; across < numAcross; across++) { //tiles along x-axis
+    for (let down = 0; down < numDown; down++) { //tiles along y-axis
       tilemap[across][down].display();
       tilemap[across][down].debug();
     }
