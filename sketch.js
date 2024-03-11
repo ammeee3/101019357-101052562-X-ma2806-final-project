@@ -61,7 +61,7 @@ function preload() {
   playerUpSprite = loadImage("player_up.png");
   playerLeftSprite = loadImage("player_left.png");
   playerRightSprite = loadImage("player_right.png");
-  heart = loadImage("heart.png")
+  heart = loadImage("heart_big.png") //updated heart asset
 
   //assigns tile images
   textures[0] = loadImage("floor.png");
