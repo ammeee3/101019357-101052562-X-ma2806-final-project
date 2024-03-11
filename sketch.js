@@ -287,6 +287,9 @@ move() { //move player
           this.isMoving = false; //when reached the target, player stops moving
           this.dirX = 0; //reset direction to zero to stop further movement
           this.dirY = 0;
+
+            this.across = Math.floor(this.xPos / this.tileSize);
+            this.down = Math.floor(this.yPos / this.tileSize);
       }
   }
 }
