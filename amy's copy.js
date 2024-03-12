@@ -9,9 +9,9 @@ let tilemap = [];
 let numDown = 15; //sets the size of the tile map (10 tiles down)
 let numAcross = 10; //sets the size of the tile map (7 tiles down)
 let textures = [];
-let ghosts = [];
-let ghostSize = tileSize;
-let map = [];
+//let ghosts = [];
+//let ghostSize = tileSize;
+//let map = [];
 let lives = 3; //player starts the game with 3 lives
 //let timer;
 //let timerDuration = 30000; //30 seconds, milliseconds
@@ -38,7 +38,7 @@ let graphicMap = [ //displaying the tile map
   [3, 3, 3, 3, 0, 1, 0, 0, 0, 3], //11
   [3, 3, 3, 3, 0, 1, 2, 1, 0, 3], //12
   [3, 3, 3, 3, 0, 0, 0, 0, 0, 3], //13
-  [3, 3, 3, 3, 2, 0, 0 , 0, 2, 3], //14
+  [3, 3, 3, 3, 2, 0, 0, 0, 2, 3], //14
   [3, 3, 3, 3, 3, 3, 3, 3, 3, 3]  //15
 ];
 
@@ -48,7 +48,8 @@ let tileRules = [ //sets the functionality of each tile
   [3, 3, 3, 3, 3, 3, 3, 3, 3, 3], //3
   [3, 3, 3, 3, 3, 3, 3, 3, 3, 3], //4
   [3, 3, 3, 3, 3, 3, 3, 3, 3, 3], //5
-  [3, 3, 3, 3, 3, 3, 4, 3, 3, 3], //6 //numbers represent how each tile will act (eg a 2 is a hole tile and will kill the player if stepped on)
+  [3, 3, 3, 3, 3, 3, 4, 3, 3, 3], //6 //numbers represent the type of tile that will be displayed at every position in the tilemap(eg a 0 will show a floor tile)
+  [3, 3, 3, 3, 0, 0, 0, 1, 0, 3], //7
   [3, 3, 3, 3, 0, 1, 2, 0, 0, 3], //8
   [3, 3, 3, 3, 0, 0, 0, 0, 0, 3], //9
   [3, 3, 3, 3, 2, 0, 0, 0, 2, 3], //10
@@ -57,14 +58,14 @@ let tileRules = [ //sets the functionality of each tile
   [3, 3, 3, 3, 0, 0, 0, 0, 0, 3], //13
   [3, 3, 3, 3, 2, 0, 0, 0, 2, 3], //14
   [3, 3, 3, 3, 3, 3, 3, 3, 3, 3]  //15
-]
+];
 
 spawnX = 6
 spawnY = 13
 
 function resetGame() { //activates when the player restarts the game by pressing r
   lives = 3 //lives refresh back to 3
-  player = new Player(playerSprite, spawnX, spawnY, tileSize, playerSpeed, tileSize, tileRules); //player is moved back to start
+  player = new Player(playerSprite, 6, 13, tileSize, playerSpeed, tileSize, tileRules); //player is moved back to start
   loseState = false; //stops player from losing on repeat
   winState = false; //stops player from winning on repeat
 }
@@ -106,7 +107,7 @@ function setup() {
       }
   }
 
-  player = new Player(playerSprite, spawnX, spawnY, tileSize, playerSpeed, tileSize, tileRules); //creates player at the starting position
+  player = new Player(playerSprite, 6, 13, tileSize, playerSpeed, tileSize, tileRules); //creates player at the starting position
 }
 
 function draw() {
