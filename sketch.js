@@ -96,7 +96,7 @@ function setup() {
 }
 
 function draw() {
-  background(255); //white background
+  background(0); //white background
 
   for (let across = 0; across < numAcross; across++) { //creates the tilemap
     for (let down = 0; down < numDown; down++) {
@@ -126,7 +126,7 @@ function keyPressed() { //moves player when key pressed
 
 function currentLives(){ //displays how many lives are left
   textSize(40);
-  fill(25);
+  fill(255);
   text("Lives:", 10, 760) //
     for (let i = 0; i < lives; i++){ //displays one heart image per life at the bottom of screen 
       image(heart, i*50, 800, 50, 50) 
@@ -320,16 +320,16 @@ class Tile { //creates a tile based on the given template
   
 
   debug() { //displays tile number grid for debugging (can be turned off)
-      stroke(245); //outline
+      stroke(0); //outline
       textSize(10); //number size
       noFill();
       rect(this.xPos, this.yPos, this.tileSize, this.tileSize);
 
-      noStroke();
-      fill(255); //number colour
-      textAlign(LEFT, TOP);
+      //noStroke();
+      //fill(255); //number colour
+      //textAlign(LEFT, TOP);
       
-      text(this.tileID, this.xPos, this.yPos);
+      //text(this.tileID, this.xPos, this.yPos);
   }; 
 }
 function updateVisibility() {
@@ -343,7 +343,7 @@ function updateVisibility() {
 }
 
 function draw() {
-  background(255);
+  background(0);
 
   updateVisibility(); // Update tile visibility based on player position
 
