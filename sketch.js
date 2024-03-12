@@ -9,6 +9,8 @@ let tilemap = [];
 let numDown = 10; //sets the size of the tile map (10 tiles down)
 let numAcross = 7; //sets the size of the tile map (7 tiles down)
 let textures = [];
+let ghosts = [];
+let ghostSize = tileSize;
 
 let lives = 3; //player starts the game with 3 lives
 //let timer;
