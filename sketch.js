@@ -320,16 +320,16 @@ class Tile { //creates a tile based on the given template
   
 
   debug() { //displays tile number grid for debugging (can be turned off)
-      stroke(0); //outline
+      stroke(255); //outline
       textSize(10); //number size
       noFill();
       rect(this.xPos, this.yPos, this.tileSize, this.tileSize);
 
-      //noStroke();
-      //fill(255); //number colour
-      //textAlign(LEFT, TOP);
+      noStroke();
+      fill(255); //number colour
+      textAlign(LEFT, TOP);
       
-      //text(this.tileID, this.xPos, this.yPos);
+      text(this.tileID, this.xPos, this.yPos);
   }; 
 }
 function updateVisibility() {
@@ -350,7 +350,7 @@ function draw() {
   for (let across = 0; across < numAcross; across++) { //tiles along x-axis
     for (let down = 0; down < numDown; down++) { //tiles along y-axis
       tilemap[across][down].display();
-      tilemap[across][down].debug();
+      //tilemap[across][down].debug();
     }
   }
 
