@@ -11,8 +11,10 @@ let numAcross = 10; //sets the size of the tile map (7 tiles down)
 let textures = [];
 //let ghosts = [];
 //let ghostSize = tileSize;
-//let map = [];
+
+let m = 0;
 let lives = 3; //player starts the game with 3 lives
+
 //let timer;
 //let timerDuration = 30000; //30 seconds, milliseconds
 
@@ -23,49 +25,50 @@ let playerRightSprite;
 let loseState = false; //so the player does not lose at game start
 let winState = false; //so the player does not win at game start
 
+let spawnX = 2;
+let spawnY = 13;
 
-let graphicMap = [ //displaying the tile map
-  [3, 3, 3, 3, 3, 3, 3, 3, 3, 3], //1
-  [3, 3, 3, 3, 3, 3, 3, 3, 3, 3], //2
-  [3, 3, 3, 3, 3, 3, 3, 3, 3, 3], //3
-  [3, 3, 3, 3, 3, 3, 3, 3, 3, 3], //4
-  [3, 3, 3, 3, 3, 3, 3, 3, 3, 3], //5
-  [3, 3, 3, 3, 3, 3, 4, 3, 3, 3], //6 //numbers represent the type of tile that will be displayed at every position in the tilemap(eg a 0 will show a floor tile)
-  [3, 3, 3, 3, 0, 0, 0, 1, 0, 3], //7
-  [3, 3, 3, 3, 0, 1, 2, 0, 0, 3], //8
-  [3, 3, 3, 3, 0, 0, 0, 0, 0, 3], //9
-  [3, 3, 3, 3, 2, 0, 0, 0, 2, 3], //10
-  [3, 3, 3, 3, 0, 1, 0, 0, 0, 3], //11
-  [3, 3, 3, 3, 0, 1, 2, 1, 0, 3], //12
-  [3, 3, 3, 3, 0, 0, 0, 0, 0, 3], //13
-  [3, 3, 3, 3, 2, 0, 0, 0, 2, 3], //14
+  let graphicMap = [ //displaying the tile map
+  [3, 3, 3, 3, 3, 3, 3, 3, 4, 3], //1
+  [3, 0, 0, 0, 0, 2, 0, 1, 0, 3], //2
+  [3, 1, 1, 2, 0, 0, 0, 1, 0, 3], //3
+  [3, 0, 0, 1, 0, 0, 2, 0, 0, 3], //4
+  [3, 1, 0, 0, 0, 0, 0, 0, 2, 3], //5
+  [3, 0, 0, 2, 2, 0, 0, 1, 0, 3], //6 
+  [3, 0, 0, 0, 0, 2, 0, 0, 0, 3], //7
+  [3, 3, 1, 0, 0, 1, 3, 3, 3, 3], //8
+  [3, 3, 1, 0, 1, 2, 3, 3, 3, 3], //9
+  [3, 3, 0, 0, 1, 0, 3, 3, 3, 3], //10
+  [3, 3, 0, 0, 0, 0, 3, 3, 3, 3], //11
+  [3, 3, 2, 1, 0, 2, 3, 3, 3, 3], //12
+  [3, 3, 0, 0, 0, 0, 3, 3, 3, 3], //13
+  [3, 3, 0, 0, 2, 0, 3, 3, 3, 3], //14
   [3, 3, 3, 3, 3, 3, 3, 3, 3, 3]  //15
-];
+  ];
 
-let tileRules = [ //sets the functionality of each tile
-  [3, 3, 3, 3, 3, 3, 3, 3, 3, 3], //1
-  [3, 3, 3, 3, 3, 3, 3, 3, 3, 3], //2
-  [3, 3, 3, 3, 3, 3, 3, 3, 3, 3], //3
-  [3, 3, 3, 3, 3, 3, 3, 3, 3, 3], //4
-  [3, 3, 3, 3, 3, 3, 3, 3, 3, 3], //5
-  [3, 3, 3, 3, 3, 3, 4, 3, 3, 3], //6 //numbers represent the type of tile that will be displayed at every position in the tilemap(eg a 0 will show a floor tile)
-  [3, 3, 3, 3, 0, 0, 0, 1, 0, 3], //7
-  [3, 3, 3, 3, 0, 1, 2, 0, 0, 3], //8
-  [3, 3, 3, 3, 0, 0, 0, 0, 0, 3], //9
-  [3, 3, 3, 3, 2, 0, 0, 0, 2, 3], //10
-  [3, 3, 3, 3, 0, 1, 0, 0, 0, 3], //11
-  [3, 3, 3, 3, 0, 1, 2, 1, 0, 3], //12
-  [3, 3, 3, 3, 0, 0, 0, 0, 0, 3], //13
-  [3, 3, 3, 3, 2, 0, 0, 0, 2, 3], //14
+  let tileRules = [ //displaying the tile map
+  [3, 3, 3, 3, 3, 3, 3, 3, 4, 3], //1
+  [3, 0, 0, 0, 0, 2, 0, 1, 0, 3], //2
+  [3, 1, 1, 2, 0, 0, 0, 1, 0, 3], //3
+  [3, 0, 0, 1, 0, 0, 2, 0, 0, 3], //4
+  [3, 1, 0, 0, 0, 0, 0, 0, 2, 3], //5
+  [3, 0, 0, 2, 2, 0, 0, 1, 0, 3], //6 
+  [3, 0, 0, 0, 0, 2, 0, 0, 0, 3], //7
+  [3, 3, 1, 0, 0, 1, 3, 3, 3, 3], //8
+  [3, 3, 1, 0, 1, 2, 3, 3, 3, 3], //9
+  [3, 3, 0, 0, 1, 0, 3, 3, 3, 3], //10
+  [3, 3, 0, 0, 0, 0, 3, 3, 3, 3], //11
+  [3, 3, 2, 1, 0, 2, 3, 3, 3, 3], //12
+  [3, 3, 0, 0, 0, 0, 3, 3, 3, 3], //13
+  [3, 3, 0, 0, 2, 0, 3, 3, 3, 3], //14
   [3, 3, 3, 3, 3, 3, 3, 3, 3, 3]  //15
-];
+  ];
 
-spawnX = 6
-spawnY = 13
+
 
 function resetGame() { //activates when the player restarts the game by pressing r
   lives = 3 //lives refresh back to 3
-  player = new Player(playerSprite, 6, 13, tileSize, playerSpeed, tileSize, tileRules); //player is moved back to start
+  player = new Player(playerSprite, spawnX, spawnY, tileSize, playerSpeed, tileSize, tileRules); //player is moved back to start
   loseState = false; //stops player from losing on repeat
   winState = false; //stops player from winning on repeat
 }
@@ -87,10 +90,7 @@ function preload() {
   
 }
 
-function setup() {
-  createCanvas(600, 1050); //creates canvas so game is visible
-
-  //timer = millis(); // initialize the timer
+function loadLevel() {
   let tileID = 0; //starting at 0, 0, loads the tilemap
 
   for (let across = 0; across < numAcross; across++) { //going row by row in the array
@@ -107,7 +107,14 @@ function setup() {
       }
   }
 
-  player = new Player(playerSprite, 6, 13, tileSize, playerSpeed, tileSize, tileRules); //creates player at the starting position
+  player = new Player(playerSprite, spawnX, spawnY, tileSize, playerSpeed, tileSize, tileRules); //creates player at the starting position
+}
+
+function setup() {
+  createCanvas(600, 1050); //creates canvas so game is visible
+  loadLevel();
+  //timer = millis(); // initialize the timer
+
 }
 
 function draw() {
@@ -131,6 +138,7 @@ function draw() {
   }
 
   if (winState){ //calls the draw function to display win screen when the player has won
+    m = m + 1;
     drawWin();
   }
 }
@@ -182,6 +190,8 @@ function drawWin(){ //add this (rename win)
   text('You win!', width/3.5, height/5); //displays text "You win!"
   textSize(35); //add this
   text('Press R to play again.', width/5, height/3); //displays text "Press R to play again.""
+
+  
 }
 
 class Player{ //creates player based on the variables given in Player class
@@ -365,7 +375,7 @@ function draw() {
   for (let across = 0; across < numAcross; across++) { //tiles along x-axis
     for (let down = 0; down < numDown; down++) { //tiles along y-axis
       tilemap[across][down].display();
-      tilemap[across][down].debug();
+      //tilemap[across][down].debug();
     }
   }
 

@@ -1,5 +1,6 @@
-let m = 0; 
+let m = 0
 
+function loadLevel() {
 if (m == 0) {
    spawnX = 2;
    spawnY = 13;
@@ -77,3 +78,21 @@ if (m == 0) {
    [3, 3, 3, 3, 3, 3, 3, 3, 3, 3]  //15
    ]
 }
+    let tileID = 0; //starting at 0, 0, loads the tilemap
+  
+    for (let across = 0; across < numAcross; across++) { //going row by row in the array
+        tilemap[across] = [];
+        for (let down = 0; down < numDown; down++) { //for each number in the row, generates it and the tiles beneath it
+          let x = across * tileSize;
+          let y = down * tileSize;
+          let textureNum = graphicMap[down][across]; //assigns the images chosen in graphicMap to the tilemap
+  
+            tilemap[across][down] = new Tile(textures[textureNum], across, down, tileSize, tileID); //creates new tile
+  
+            tileID++;
+        
+        }
+    }
+  
+    player = new Player(playerSprite, spawnX, spawnY, tileSize, playerSpeed, tileSize, tileRules); //creates player at the starting position
+  }
