@@ -191,6 +191,8 @@ function tripwire() {
         [3, 3, 3, 3, 3, 3, 3, 3, 3, 3]  //15
         ];
     }
+    
+    this.tileRules = tileRules; //player functions based on rules of tiles in tileRules (eg can walk on floor tiles)
 
     let tileID = 0; //starting at 0, 0, loads the tilemap
 
@@ -207,4 +209,6 @@ function tripwire() {
         
         }
     }
+
+         
 }
