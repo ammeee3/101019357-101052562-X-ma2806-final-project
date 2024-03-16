@@ -12,8 +12,9 @@ let textures = [];
 //let ghosts = [];
 //let ghostSize = tileSize;
 
-let level = 0;
+let level = 0; //player starts on the first level
 let lives = 3; //player starts the game with 3 lives
+let wire = 0; //all tripwires start active
 
 //let timer;
 //let timerDuration = 30000; //30 seconds, milliseconds
@@ -34,42 +35,42 @@ let graphicMap = [ //displaying the tile map
 [3, 3, 3, 3, 3, 3, 3, 3, 3, 3], //3
 [3, 3, 3, 3, 3, 3, 3, 3, 3, 3], //4
 [3, 3, 3, 3, 3, 3, 3, 3, 3, 3], //5
-[3, 3, 3, 3, 3, 3, 4, 3, 3, 3], //6 //numbers represent the type of tile that will be displayed at every position in the tilemap(eg a 0 will show a floor tile)
-[3, 3, 3, 3, 0, 0, 0, 1, 0, 3], //7
-[3, 3, 3, 3, 0, 1, 2, 0, 0, 3], //8
+[3, 3, 3, 3, 3, 3, 4, 3, 3, 3], //6 
+[3, 3, 3, 3, 0, 0, 0, 1, 7, 3], //7
+[3, 3, 3, 3, 2, 5, 2, 0, 0, 3], //8
 [3, 3, 3, 3, 0, 0, 0, 0, 0, 3], //9
-[3, 3, 3, 3, 2, 0, 0, 0, 2, 3], //10
-[3, 3, 3, 3, 0, 1, 0, 0, 0, 3], //11
+[3, 3, 3, 3, 2, 5, 5, 5, 2, 3], //10
+[3, 3, 3, 3, 7, 1, 0, 0, 0, 3], //11
 [3, 3, 3, 3, 0, 1, 2, 1, 0, 3], //12
 [3, 3, 3, 3, 0, 0, 0, 0, 0, 3], //13
 [3, 3, 3, 3, 2, 0, 0, 0, 2, 3], //14
 [3, 3, 3, 3, 3, 3, 3, 3, 3, 3]  //15
 ];
 
-let tileRules = [ //rules for the tile map
+tileRules = [ //rules for the tile map
 [3, 3, 3, 3, 3, 3, 3, 3, 3, 3], //1
 [3, 3, 3, 3, 3, 3, 3, 3, 3, 3], //2
 [3, 3, 3, 3, 3, 3, 3, 3, 3, 3], //3
 [3, 3, 3, 3, 3, 3, 3, 3, 3, 3], //4
 [3, 3, 3, 3, 3, 3, 3, 3, 3, 3], //5
-[3, 3, 3, 3, 3, 3, 4, 3, 3, 3], //6 //numbers represent how each tile will act (eg a 2 is a trap tile and will kill the player if stepped on)
-[3, 3, 3, 3, 0, 0, 0, 1, 0, 3], //7
-[3, 3, 3, 3, 0, 1, 2, 0, 0, 3], //8
+[3, 3, 3, 3, 3, 3, 4, 3, 3, 3], //6 
+[3, 3, 3, 3, 0, 0, 0, 1, 7, 3], //7
+[3, 3, 3, 3, 2, 5, 2, 0, 0, 3], //8
 [3, 3, 3, 3, 0, 0, 0, 0, 0, 3], //9
-[3, 3, 3, 3, 2, 0, 0, 0, 2, 3], //10
-[3, 3, 3, 3, 0, 1, 0, 0, 0, 3], //11
+[3, 3, 3, 3, 2, 5, 5, 5, 2, 3], //10
+[3, 3, 3, 3, 7, 1, 0, 0, 0, 3], //11
 [3, 3, 3, 3, 0, 1, 2, 1, 0, 3], //12
 [3, 3, 3, 3, 0, 0, 0, 0, 0, 3], //13
 [3, 3, 3, 3, 2, 0, 0, 0, 2, 3], //14
 [3, 3, 3, 3, 3, 3, 3, 3, 3, 3]  //15
 ];
-
 
 function resetGame() { //activates when the player restarts the game by pressing r
   lives = 3 //lives refresh back to 3
   player = new Player(playerSprite, spawnX, spawnY, tileSize, playerSpeed, tileSize, tileRules); //player is moved back to start
   loseState = false; //stops player from losing on repeat
   winState = false; //stops player from winning on repeat
+  wire = 0;
 }
 
 function preload() {
@@ -81,11 +82,14 @@ function preload() {
   heart = loadImage("heart_big.png") //updated heart asset
 
   //assigns tile images
-  textures[0] = loadImage("floor.png");
-  textures[1] = loadImage("rock.png");
-  textures[2] = loadImage("hole.png");
-  textures[3] = loadImage("wall.png");
-  textures[4] = loadImage("exit.png");
+  textures[0] = loadImage("floor.png"); //floor (player can move on these squares)
+  textures[1] = loadImage("rock.png"); //boulders (cannot be moved through)
+  textures[2] = loadImage("hole.png"); //traps (will kill the player when stepped on)
+  textures[3] = loadImage("wall.png"); //walls (cannot be moved through)
+  textures[4] = loadImage("exit.png"); //moves player to next level/wins when stepped on
+  textures[5] = loadImage("active.png"); //active tripwire - will kill the player when stepped on
+  textures[6] = loadImage("deactivated.png"); //deactivated tripwire - player can move through once the player has deactivated the tripwire by stepping on the corresponding pressure plate
+  textures[7] = loadImage("pressureplate.png"); //deactivates a tripwire
 }
 
 function setup() {
@@ -153,6 +157,7 @@ function handleWin() { //when called, the win condition is activated
   if (level >= 3) {
     winState = true;
     level = 0;
+    wire = 0;
   }
   loadLevel();
 }
@@ -270,11 +275,17 @@ checkTargetTile() { //check and update players target tile based on its current 
       nextTileVertical >= 0 && 
       nextTileVertical < numDown 
   ) { //can only move to next tile if it is an empty floor tile, a trap or the exit
-      if (this.tileRules[nextTileVertical][nextTileHorizontal] == 0) { //moves to next tile if it is a floor tile
+      if (this.tileRules[nextTileVertical][nextTileHorizontal] == 0 || this.tileRules[nextTileVertical][nextTileHorizontal] == 6) { //moves to next tile if it is a floor tile / deactivated tripwire/pressure plate
       this.tx = nextTileHorizontal * this.tileSize;
       this.ty = nextTileVertical * this.tileSize;
       this.isMoving = true;
-    } else if (this.tileRules[nextTileVertical][nextTileHorizontal] == 2) { //when you move onto a trap tile, you lose a life and game checks if you have died
+    } else if (this.tileRules[nextTileVertical][nextTileHorizontal] == 7) {  //moves to next tile if it is an exit tile and activates win condition
+        this.tx = nextTileHorizontal * this.tileSize;
+        this.ty = nextTileVertical * this.tileSize;
+        this.isMoving = true;
+        wire++;
+        tripwire();
+    } else if (this.tileRules[nextTileVertical][nextTileHorizontal] == 2 || this.tileRules[nextTileVertical][nextTileHorizontal] == 5) { //when you move onto a trap tile, you lose a life and game checks if you have died
         this.tx = nextTileHorizontal * this.tileSize;
         this.ty = nextTileVertical * this.tileSize;
         this.isMoving = true;
