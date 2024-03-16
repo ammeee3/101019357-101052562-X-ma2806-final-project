@@ -46,23 +46,23 @@ let graphicMap = [ //displaying the tile map
 [3, 3, 3, 3, 3, 3, 3, 3, 3, 3]  //15
 ];
 
-  let tileRules = [ //displaying the tile map
-  [3, 3, 3, 3, 3, 3, 3, 3, 3, 3], //1
-  [3, 3, 3, 3, 3, 3, 3, 3, 3, 3], //2
-  [3, 3, 3, 3, 3, 3, 3, 3, 3, 3], //3
-  [3, 3, 3, 3, 3, 3, 3, 3, 3, 3], //4
-  [3, 3, 3, 3, 3, 3, 3, 3, 3, 3], //5
-  [3, 3, 3, 3, 3, 3, 4, 3, 3, 3], //6 //numbers represent how each tile will act (eg a 2 is a hole tile and will kill the player if stepped on)
-  [3, 3, 3, 3, 0, 0, 0, 1, 0, 3], //7
-  [3, 3, 3, 3, 0, 1, 2, 0, 0, 3], //8
-  [3, 3, 3, 3, 0, 0, 0, 0, 0, 3], //9
-  [3, 3, 3, 3, 2, 0, 0, 0, 2, 3], //10
-  [3, 3, 3, 3, 0, 1, 0, 0, 0, 3], //11
-  [3, 3, 3, 3, 0, 1, 2, 1, 0, 3], //12
-  [3, 3, 3, 3, 0, 0, 0, 0, 0, 3], //13
-  [3, 3, 3, 3, 2, 0, 0, 0, 2, 3], //14
-  [3, 3, 3, 3, 3, 3, 3, 3, 3, 3]  //15
-  ];
+let tileRules = [ //displaying the tile map
+[3, 3, 3, 3, 3, 3, 3, 3, 3, 3], //1
+[3, 3, 3, 3, 3, 3, 3, 3, 3, 3], //2
+[3, 3, 3, 3, 3, 3, 3, 3, 3, 3], //3
+[3, 3, 3, 3, 3, 3, 3, 3, 3, 3], //4
+[3, 3, 3, 3, 3, 3, 3, 3, 3, 3], //5
+[3, 3, 3, 3, 3, 3, 4, 3, 3, 3], //6 //numbers represent how each tile will act (eg a 2 is a hole tile and will kill the player if stepped on)
+[3, 3, 3, 3, 0, 0, 0, 1, 0, 3], //7
+[3, 3, 3, 3, 0, 1, 2, 0, 0, 3], //8
+[3, 3, 3, 3, 0, 0, 0, 0, 0, 3], //9
+[3, 3, 3, 3, 2, 0, 0, 0, 2, 3], //10
+[3, 3, 3, 3, 0, 1, 0, 0, 0, 3], //11
+[3, 3, 3, 3, 0, 1, 2, 1, 0, 3], //12
+[3, 3, 3, 3, 0, 0, 0, 0, 0, 3], //13
+[3, 3, 3, 3, 2, 0, 0, 0, 2, 3], //14
+[3, 3, 3, 3, 3, 3, 3, 3, 3, 3]  //15
+];
 
 
 function resetGame() { //activates when the player restarts the game by pressing r
@@ -86,14 +86,12 @@ function preload() {
   textures[2] = loadImage("hole.png");
   textures[3] = loadImage("wall.png");
   textures[4] = loadImage("exit.png");
-  
 }
-
 
 function setup() {
   createCanvas(600, 1050); //creates canvas so game is visible
   //timer = millis(); // initialize the timer
-  loadLevel();
+  loadLevel(); //loads the tilemap based on what level the player is on
   
 
 function draw() {
@@ -108,9 +106,9 @@ function draw() {
     }
   }
 
-  player.display();
-  player.move();
-  currentLives();
+  //player.display();
+  //player.move();
+  //currentLives();
 }
 
   if (loseState){ //calls the draw function to display lose screen when the player has won
@@ -143,14 +141,12 @@ function deathCheck() { //activates when player moves on to a trap tile
   }
 }
 
-
-
 function handleLose() { //when called, the loss condition is activated
   loseState = true; 
   level = 0;
   loadLevel();
-
 }
+
 function handleWin() { //when called, the win condition is activated
   player = new Player(playerSprite, spawnX, spawnY, tileSize, playerSpeed, tileSize, tileRules);
   level++;
@@ -179,8 +175,6 @@ function drawWin(){ //add this (rename win)
   text('You win!', width/3.5, height/5); //displays text "You win!"
   textSize(35); //add this
   text('Press R to play again.', width/5, height/3); //displays text "Press R to play again.""
-
-  
 }
 
 class Player{ //creates player based on the variables given in Player class
@@ -295,21 +289,22 @@ checkTargetTile() { //check and update players target tile based on its current 
 }
 
 move() { //move player
-  if (this.isMoving) {
-      this.xPos += this.speed * this.dirX;
-      this.yPos += this.speed * this.dirY;
+  if (this.isMoving) { //if player is moving
+      this.xPos += this.speed * this.dirX; //move along x axis at set speed
+      this.yPos += this.speed * this.dirY; //move along y axis at set speed
 
       if (this.xPos === this.tx && this.yPos === this.ty) {
           this.isMoving = false; //when reached the target, player stops moving
           this.dirX = 0; //reset direction to zero to stop further movement
-          this.dirY = 0;
+          this.dirY = 0; //"
 
-            this.across = Math.floor(this.xPos / this.tileSize);
+            this.across = Math.floor(this.xPos / this.tileSize); //player only moves between squares in the tilemap
             this.down = Math.floor(this.yPos / this.tileSize);
       }
   }
 }
   display() { //how images are displayed
+    //displays player sprite at current position
     imageMode(CORNER);
     image(this.sprite, this.xPos, this.yPos, this.size, this.size);
   }
@@ -364,20 +359,20 @@ function draw() {
 
   for (let across = 0; across < numAcross; across++) { //tiles along x-axis
     for (let down = 0; down < numDown; down++) { //tiles along y-axis
-      tilemap[across][down].display();
-      //tilemap[across][down].debug();
+      tilemap[across][down].display(); //displays visible squares in tilemap
+      //tilemap[across][down].debug(); //debug can be turned on to see tile number
     }
   }
 
-  player.display();
-  player.move();
-  currentLives();
+  player.display(); //displays player
+  player.move(); //displays player movement
+  currentLives(); //displays current lives
 
-  if (loseState) {
+  if (loseState) { //if player has lost all lives, displays the lose screen 
     drawLose();
   }
 
-  if (winState) {
+  if (winState) { //if player has reached the door on 3rd level, displays the win screen
     drawWin();  
   }
 }
