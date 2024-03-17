@@ -10,9 +10,9 @@ class Ghost{
         
     }
 
-    //display(){
-      //  image(this.ghostSprite, this.xPos, this.yPos, this.tileSize, this.tileSize);
-    //}
+    display(){
+        image(this.ghostSprite, this.xPos, this.yPos, this.tileSize, this.tileSize);
+    }
 }
 
 function startGhostSpawn(){
