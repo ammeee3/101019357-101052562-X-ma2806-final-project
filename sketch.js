@@ -155,6 +155,7 @@ function handleLose() { //when called, the loss condition is activated
 function handleWin() { //when called, the win condition is activated
   player = new Player(playerSprite, spawnX, spawnY, tileSize, playerSpeed, tileSize, tileRules);
   level++;
+  wire = 0;
   if (level >= 3) {
     winState = true;
     level = 0;
@@ -281,13 +282,17 @@ checkTargetTile() { //check and update players target tile based on its current 
       this.ty = nextTileVertical * this.tileSize;
       this.isMoving = true;
     } else if (this.tileRules[nextTileVertical][nextTileHorizontal] == 7) {  //moves to next tile if it is an exit tile and activates win condition
+        //this.tileRules[nextTileVertical][nextTileHorizontal] = 8;
         this.tx = nextTileHorizontal * this.tileSize;
         this.ty = nextTileVertical * this.tileSize;
         this.isMoving = true;
         wire++;
         console.log(wire);
+        console.log("blahla", nextTileHorizontal, nextTileVertical);
         tripwire();
-        tileRules[this.xPos][this.yPos] = 8;
+        
+        console.log("player 6 pos = ", this.across - 1, this.down - 1);
+        //tileRules[this.across][this.down] = 8;
     } else if (this.tileRules[nextTileVertical][nextTileHorizontal] == 2 || this.tileRules[nextTileVertical][nextTileHorizontal] == 5) { //when you move onto a trap tile, you lose a life and game checks if you have died
         this.tx = nextTileHorizontal * this.tileSize;
         this.ty = nextTileVertical * this.tileSize;
@@ -314,6 +319,9 @@ move() { //move player
 
             this.across = Math.floor(this.xPos / this.tileSize); //player only moves between squares in the tilemap
             this.down = Math.floor(this.yPos / this.tileSize);
+            player = new Player(this.sprite, this.across, this.down, tileSize, playerSpeed, tileSize, tileRules);
+            console.log("player pos = ", this.across, this.down);
+
       }
   }
 }
