@@ -93,6 +93,11 @@ function preload() {
   textures[8] = loadImage("pressureplate.png");
 }
 
+function loadLevel() {
+  tripwire();
+  player = new Player(playerSprite, spawnX, spawnY, tileSize, playerSpeed, tileSize, tileRules); //creates player at the starting position
+  }
+
 function setup() {
   createCanvas(600, 1050); //creates canvas so game is visible
   //timer = millis(); // initialize the timer
