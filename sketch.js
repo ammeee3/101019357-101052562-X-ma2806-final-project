@@ -90,30 +90,31 @@ function preload() {
   textures[5] = loadImage("active.png"); //active tripwire - will kill the player when stepped on
   textures[6] = loadImage("deactivated.png"); //deactivated tripwire - player can move through once the player has deactivated the tripwire by stepping on the corresponding pressure plate
   textures[7] = loadImage("pressureplate.png"); //deactivates a tripwire
+  textures[8] = loadImage("pressureplate.png");
 }
 
 function setup() {
   createCanvas(600, 1050); //creates canvas so game is visible
   //timer = millis(); // initialize the timer
   loadLevel(); //loads the tilemap based on what level the player is on
-  
+}
 
 function draw() {
   background(0); //black background
-
+  updateVisibility();
   for (let across = 0; across < numAcross; across++) { //creates the tilemap
     for (let down = 0; down < numDown; down++) {
       tilemap[across][down].display(); //d
-      tilemap[across][down].debug(); //shows tile grid (can be turned off)
+      //tilemap[across][down].debug(); //shows tile grid (can be turned off)
     //if(millis() - timer > timeDuration) //timer reached its duration
     //timer = millis(); //resets the timer
     }
   }
 
-  //player.display();
-  //player.move();
-  //currentLives();
-}
+  player.display();
+  player.move();
+  currentLives();
+
 
   if (loseState){ //calls the draw function to display lose screen when the player has won
     drawLose();
@@ -275,7 +276,7 @@ checkTargetTile() { //check and update players target tile based on its current 
       nextTileVertical >= 0 && 
       nextTileVertical < numDown 
   ) { //can only move to next tile if it is an empty floor tile, a trap or the exit
-      if (this.tileRules[nextTileVertical][nextTileHorizontal] == 0 || this.tileRules[nextTileVertical][nextTileHorizontal] == 6) { //moves to next tile if it is a floor tile / deactivated tripwire/pressure plate
+      if (this.tileRules[nextTileVertical][nextTileHorizontal] == 0 || this.tileRules[nextTileVertical][nextTileHorizontal] == 6 || this.tileRules[nextTileVertical][nextTileHorizontal] == 8) { //moves to next tile if it is a floor tile / deactivated tripwire/pressure plate
       this.tx = nextTileHorizontal * this.tileSize;
       this.ty = nextTileVertical * this.tileSize;
       this.isMoving = true;
@@ -284,7 +285,9 @@ checkTargetTile() { //check and update players target tile based on its current 
         this.ty = nextTileVertical * this.tileSize;
         this.isMoving = true;
         wire++;
+        console.log(wire);
         tripwire();
+        tileRules[this.xPos][this.yPos] = 8;
     } else if (this.tileRules[nextTileVertical][nextTileHorizontal] == 2 || this.tileRules[nextTileVertical][nextTileHorizontal] == 5) { //when you move onto a trap tile, you lose a life and game checks if you have died
         this.tx = nextTileHorizontal * this.tileSize;
         this.ty = nextTileVertical * this.tileSize;
@@ -364,26 +367,3 @@ function updateVisibility() {
   }
 }
 
-function draw() {
-  background(0);
-  updateVisibility(); // Update tile visibility based on player position
-
-  for (let across = 0; across < numAcross; across++) { //tiles along x-axis
-    for (let down = 0; down < numDown; down++) { //tiles along y-axis
-      tilemap[across][down].display(); //displays visible squares in tilemap
-      //tilemap[across][down].debug(); //debug can be turned on to see tile number
-    }
-  }
-
-  player.display(); //displays player
-  player.move(); //displays player movement
-  currentLives(); //displays current lives
-
-  if (loseState) { //if player has lost all lives, displays the lose screen 
-    drawLose();
-  }
-
-  if (winState) { //if player has reached the door on 3rd level, displays the win screen
-    drawWin();  
-  }
-}

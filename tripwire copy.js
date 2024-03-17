@@ -1,8 +1,8 @@
-function tripwire() {
-    let graphicMap;
-    let tileRules;
-
-    const graphicMap1 = [
+function tripwire() {   
+    if (level == 0){
+        spawnX = 6;
+        spawnY = 13;
+        graphicMap = [
         [3, 3, 3, 3, 3, 3, 3, 3, 3, 3], //1
         [3, 3, 3, 3, 3, 3, 3, 3, 3, 3], //2
         [3, 3, 3, 3, 3, 3, 3, 3, 3, 3], //3
@@ -18,9 +18,50 @@ function tripwire() {
         [3, 3, 3, 3, 0, 0, 0, 0, 0, 3], //13
         [3, 3, 3, 3, 2, 0, 0, 0, 2, 3], //14
         [3, 3, 3, 3, 3, 3, 3, 3, 3, 3]  //15
-    ];
+        ];
+        tileRules = [ //rules for the tile map
+        [3, 3, 3, 3, 3, 3, 3, 3, 3, 3], //1
+        [3, 3, 3, 3, 3, 3, 3, 3, 3, 3], //2
+        [3, 3, 3, 3, 3, 3, 3, 3, 3, 3], //3
+        [3, 3, 3, 3, 3, 3, 3, 3, 3, 3], //4
+        [3, 3, 3, 3, 3, 3, 3, 3, 3, 3], //5
+        [3, 3, 3, 3, 3, 3, 4, 3, 3, 3], //6 
+        [3, 3, 3, 3, 0, 0, 0, 1, 7, 3], //7
+        [3, 3, 3, 3, 2, 5, 2, 0, 0, 3], //8
+        [3, 3, 3, 3, 0, 0, 0, 0, 0, 3], //9
+        [3, 3, 3, 3, 2, 5, 5, 5, 2, 3], //10
+        [3, 3, 3, 3, 7, 1, 0, 0, 0, 3], //11
+        [3, 3, 3, 3, 0, 1, 2, 1, 0, 3], //12
+        [3, 3, 3, 3, 0, 0, 0, 0, 0, 3], //13
+        [3, 3, 3, 3, 2, 0, 0, 0, 2, 3], //14
+        [3, 3, 3, 3, 3, 3, 3, 3, 3, 3]  //15
+        ]; 
 
-    const graphicMap2 = [
+        if (wire == 1){
+            graphicMap[9][5] = 6;
+            graphicMap[9][6] = 6;
+            graphicMap[9][7] = 6;
+
+            tileRules[9][5] = 6;
+            tileRules[9][6] = 6;
+            tileRules[9][7] = 6;
+
+        } else if (wire >= 2){
+            graphicMap[9][5] = 6;
+            graphicMap[9][6] = 6;
+            graphicMap[9][7] = 6;
+            graphicMap[7][5] = 6;
+
+            tileRules[9][5] = 6;
+            tileRules[9][6] = 6;
+            tileRules[9][7] = 6;
+            tileRules[7][5] = 6;
+        }
+
+    }   else if (level == 1){
+        spawnX = 2;
+        spawnY = 13;
+        graphicMap = [ //displaying the tile map
         [3, 3, 3, 3, 3, 3, 3, 3, 4, 3], //1
         [3, 0, 0, 0, 0, 2, 0, 1, 0, 3], //2
         [3, 1, 1, 2, 0, 0, 0, 1, 0, 3], //3
@@ -36,9 +77,30 @@ function tripwire() {
         [3, 3, 0, 0, 0, 0, 3, 3, 3, 3], //13
         [3, 3, 0, 0, 2, 0, 3, 3, 3, 3], //14
         [3, 3, 3, 3, 3, 3, 3, 3, 3, 3]  //15
-    ];    
+        ];
 
-    const graphicMap3 = [
+        tileRules = [ 
+        [3, 3, 3, 3, 3, 3, 3, 3, 4, 3], //1
+        [3, 0, 0, 0, 0, 2, 0, 1, 0, 3], //2
+        [3, 1, 1, 2, 0, 0, 0, 1, 0, 3], //3
+        [3, 0, 0, 1, 0, 0, 2, 0, 0, 3], //4
+        [3, 1, 0, 0, 0, 0, 0, 0, 2, 3], //5
+        [3, 0, 0, 2, 2, 0, 0, 1, 0, 3], //6 
+        [3, 0, 0, 0, 0, 2, 0, 0, 0, 3], //7
+        [3, 3, 1, 0, 0, 1, 3, 3, 3, 3], //8
+        [3, 3, 1, 0, 1, 2, 3, 3, 3, 3], //9
+        [3, 3, 0, 0, 1, 0, 3, 3, 3, 3], //10
+        [3, 3, 0, 0, 0, 0, 3, 3, 3, 3], //11
+        [3, 3, 2, 1, 0, 2, 3, 3, 3, 3], //12
+        [3, 3, 0, 0, 0, 0, 3, 3, 3, 3], //13
+        [3, 3, 0, 0, 2, 0, 3, 3, 3, 3], //14
+        [3, 3, 3, 3, 3, 3, 3, 3, 3, 3]  //15
+        ];
+        
+    }   else if (level == 2){
+        spawnX = 8;
+        spawnY = 13;
+        graphicMap = [ //displaying the tile map
         [3, 3, 3, 4, 3, 3, 3, 3, 3, 3], //1
         [3, 0, 1, 0, 1, 1, 2, 0, 0, 3], //2
         [3, 0, 2, 0, 2, 0, 0, 0, 2, 3], //3
@@ -54,44 +116,34 @@ function tripwire() {
         [3, 1, 0, 0, 0, 1, 0, 0, 1, 3], //13
         [3, 0, 0, 0, 0, 0, 0, 0, 0, 3], //14
         [3, 3, 3, 3, 3, 3, 3, 3, 3, 3]  //15
-    ];
-    
-    if (level == 1){
-        graphicMap = [graphicMap1]
-        spawnX = 6;
-        spawnY = 13;
-        if (wire == 1){
-            graphicMap[9][5] = 6;
-            graphicMap[9][6] = 6;
-            graphicMap[9][7] = 6;
-            graphicMap[9][8] = 6;
-        } else if (wire == 2){
-            graphicMap[9][5] = 6;
-            graphicMap[9][6] = 6;
-            graphicMap[9][7] = 6;
-            graphicMap[9][8] = 6;
-            graphicMap[8][4] = 6;
-        }}
-    if (level == 2){
-        graphicMap = [graphicMap2]
-        spawnX = 2;
-        spawnY = 13;
+        ];
+        
+        tileRules = [ 
+        [3, 3, 3, 4, 3, 3, 3, 3, 3, 3], //1
+        [3, 0, 1, 0, 1, 1, 2, 0, 0, 3], //2
+        [3, 0, 2, 0, 2, 0, 0, 0, 2, 3], //3
+        [3, 0, 0, 0, 1, 0, 1, 1, 2, 3], //4
+        [3, 1, 0, 1, 1, 0, 0, 0, 0, 3], //5
+        [3, 0, 0, 0, 2, 0, 0, 2, 0, 3], //6 
+        [3, 0, 2, 0, 0, 0, 1, 0, 0, 3], //7
+        [3, 0, 0, 1, 2, 1, 1, 0, 1, 3], //8
+        [3, 2, 1, 0, 0, 0, 2, 0, 0, 3], //9
+        [3, 0, 0, 0, 2, 0, 0, 0, 2, 3], //10
+        [3, 0, 1, 1, 1, 0, 1, 2, 0, 3], //11
+        [3, 0, 0, 0, 1, 0, 1, 0, 0, 3], //12
+        [3, 1, 0, 0, 0, 1, 0, 0, 1, 3], //13
+        [3, 0, 0, 0, 0, 0, 0, 0, 0, 3], //14
+        [3, 3, 3, 3, 3, 3, 3, 3, 3, 3]  //15
+        ];
     }
-
-    if (level == 2){
-        graphicMap = [graphicMap3]
-        spawnX = 8;
-        spawnY = 13;
-    }
-
-    tileRules = graphicMap;
-
-    
-
-
     //player = new Player();
+    //playerX = this.xPos;
+    //playerY = this.yPos;
+    console.log("player position:", this.xPos, this.yPos);
+    //currentSprite = this.sprite;
     // //player functions based on rules of tiles in tileRules (eg can walk on floor tiles)
-    //player = new Player(playerSprite, spawnY, spawnY, tileSize, playerSpeed, tileSize, tileRules);
+    //player = new Player(playerSprite, playerX, playerY, tileSize, playerSpeed, tileSize, tileRules);
+    this.tileRules = tileRules;
     let tileID = 0; //starting at 0, 0, loads the tilemap
 
     for (let across = 0; across < numAcross; across++) { //going row by row in the array
@@ -109,5 +161,5 @@ function tripwire() {
     }
 }
 
-         
+
 
