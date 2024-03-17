@@ -3,6 +3,7 @@ class Ghost{
     constructor(ghostSprite, tileSize, ghostX, ghostY){
         this.ghostSprite = ghostSprite;
         this.tileSize = tileSize;
+        this.speed = speed;
         //ghostX = player.across + randomX;
         //ghostY = player.down + randomY;
         this.xPos = ghostX * tileSize;
@@ -53,7 +54,8 @@ function spawnGhost() {
     let ghostX = ghostTileX * tileSize + tileSize / 2;
     let ghostY = ghostTileY * tileSize + tileSize / 2;
   
-    ghost = new Ghost(ghostX, ghostY, ghostSpeed); 
+    ghost = new Ghost(ghostX, ghostY, speed, tileSize); 
+    ghostSpawnSound.play();
 }
 
 function isGhostAlive(){

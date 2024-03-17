@@ -22,6 +22,9 @@ let wire = 0; //all tripwires start active
 let playerUpSprite;
 let playerLeftSprite;
 let playerRightSprite;
+let ghostSprite;
+let ghostSpawnClock;
+let ghostSpawnSound;
 
 let loseState = false; //so the player does not lose at game start
 let winState = false; //so the player does not win at game start
@@ -71,6 +74,7 @@ function resetGame() { //activates when the player restarts the game by pressing
   loseState = false; //stops player from losing on repeat
   winState = false; //stops player from winning on repeat
   wire = 0;
+  startGhostSpawn();
 }
 
 function preload() {
@@ -79,7 +83,11 @@ function preload() {
   playerUpSprite = loadImage("player_up.png");
   playerLeftSprite = loadImage("player_left.png");
   playerRightSprite = loadImage("player_right.png");
-  heart = loadImage("heart_big.png") //updated heart asset
+  heart = loadImage("heart_big.png"); //updated heart asset
+  ghostSprite = loadImage("ghost.png");
+
+  //ghostSpawnSound = loadSound("ghostspawn.mp3");
+
 
   //assigns tile images
   textures[0] = loadImage("floor.png"); //floor (player can move on these squares)
@@ -101,6 +109,7 @@ function loadLevel() {
 function setup() {
   createCanvas(600, 1050); //creates canvas so game is visible
   //timer = millis(); // initialize the timer
+  startGhostSpawn();
   loadLevel(); //loads the tilemap based on what level the player is on
 }
 
@@ -123,10 +132,12 @@ function draw() {
 
   if (loseState){ //calls the draw function to display lose screen when the player has won
     drawLose();
+    stopGhostSpawn();
   }
 
   if (winState){ //calls the draw function to display win screen when the player has won
     drawWin();
+    stopGhostSpawn();
   }
 }
 
