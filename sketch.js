@@ -9,6 +9,7 @@ let tilemap = [];
 let numDown = 15; //sets the size of the tile map (10 tiles down)
 let numAcross = 10; //sets the size of the tile map (7 tiles down)
 let textures = [];
+let mainTheme; //declare the variable to hold the background music
 //let ghosts = [];
 //let ghostSize = tileSize;
 
@@ -86,6 +87,7 @@ function preload() {
   playerRightSprite = loadImage("player_right.png");
   heart = loadImage("heart_big.png"); //updated heart asset
   ghostSprite = loadImage("ghost.png");
+  mainTheme = loadSound("MainTheme.mp3");
 
   //ghostSpawnSound = loadSound("ghostspawn.mp3");
 
@@ -113,6 +115,7 @@ function setup() {
   startGhostSpawn();
   loadLevel(); //loads the tilemap based on what level the player is on
   startGhostSpawn();
+  mainTheme.loop(); //loop the background music
 }
 
 function draw() {
