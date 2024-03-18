@@ -18,7 +18,7 @@ class Ghost{
 }
 
 function startGhostSpawn(){
-    ghostSpawnClock = setInterval(spawnGhost, random(10000,20000));
+    ghostSpawnClock = setInterval(spawnGhost, Math.floor(Math.random() * 10000) + 10000);
 }
 
 function stopGhostSpawn(){

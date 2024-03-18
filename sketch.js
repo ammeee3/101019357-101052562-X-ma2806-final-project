@@ -24,6 +24,7 @@ let playerLeftSprite;
 let playerRightSprite;
 let ghostSprite;
 let ghostSpawnClock;
+let ghost;
 let ghostSpawnSound;
 
 let loseState = false; //so the player does not lose at game start
@@ -111,6 +112,7 @@ function setup() {
   //timer = millis(); // initialize the timer
   startGhostSpawn();
   loadLevel(); //loads the tilemap based on what level the player is on
+  startGhostSpawn();
 }
 
 function draw() {
@@ -122,6 +124,9 @@ function draw() {
       //tilemap[across][down].debug(); //shows tile grid (can be turned off)
     //if(millis() - timer > timeDuration) //timer reached its duration
     //timer = millis(); //resets the timer
+    if (ghost) {
+      ghost.display();
+    }
     }
   }
 
@@ -222,9 +227,9 @@ class Player{ //creates player based on the variables given in Player class
     this.isMoving = false;
     this.tx = this.xPos; 
     this.ty = this.yPos;
-
-
 }
+
+
 setDirection() {
   if (!this.isMoving) { //when a key is pressed, player moves and/or looks in direction depending on key pressed
      
