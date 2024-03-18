@@ -7,6 +7,7 @@ OVERVIEW
 Our idea for a game is a cave crawler, with the main goal of the player to escape by navigating through the cave, using your flashlight to avoid traps and deter monsters
 
 INDIVIDUAL CONTRIBUTIONS
+SOUND DOES WORK!!! turn on site settings, audio allow
 
 SCOTT - Created (along side with Emilia) flashlight components lines 308, 313, 314, 330-365, idea for sound prompt.
 
