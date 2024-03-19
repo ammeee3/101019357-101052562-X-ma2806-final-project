@@ -13,6 +13,7 @@ let mainTheme; //declare the variable to hold the background music
 //let ghosts = [];
 //let ghostSize = tileSize;
 let YOULOSESound;
+let YOUWINSound;
 let PressurePlateSFX;
 let YouWin;
 let DeathSound;
@@ -96,9 +97,10 @@ function preload() {
   gameover = loadImage("game over.png");
   ghostSprite = loadImage("ghost.png");
   mainTheme = loadSound("MainTheme.mp3");
-  YOULOSESound = loadSound("YOU LOSE.mp3");
   PressurePlateSFX = loadSound("PressurePlateSFX.mp3");
-  YouWin = loadSound("YOU WIN.mp3");
+  YouWINSound = loadSound("YOU WIN.mp3");
+  YOULOSESound = loadSound("YOU LOSE.mp3");
+
   DeathSound = loadSound("DeathSFX.mp3")
 
   //ghostSpawnSound = loadSound("ghostspawn.mp3");
@@ -167,6 +169,10 @@ function keyPressed() { //moves player when key pressed
     if (YOULOSESound.isPlaying()) {
     YOULOSESound.stop(); //stop the lose sound
     }
+    if (YouWINSound.isPlaying()) {
+      YouWINSound.stop(); // Stop the win sound
+    }
+    mainTheme.loop(); // Restart the main theme
   } else {
     player.setDirection(); // move player when other keys are pressed
   }
@@ -174,6 +180,9 @@ function keyPressed() { //moves player when key pressed
 function stopLoseSound() {
   if (loseSound.isPlaying()) {
     loseSound.stop(); // Stop the lose sound if it's playing
+  }
+  if (YOUWINSound.isPlaying()) {
+    YOUWINSound.stop(); // Stop the win sound if it's playing
   }
 }
 function currentLives(){ //displays how many lives are left
@@ -213,7 +222,10 @@ function handleWin() { //when called, the win condition is activated
     wire = 0;
   }
   loadLevel();
-  mainTheme.stop(); // stop the main theme music
+  if (winState) {
+    YouWINSound.play();
+    mainTheme.stop(); // Stop the main theme music
+  }
 }
 
 function drawLose(){ 
