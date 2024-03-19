@@ -1,4 +1,5 @@
 function tripwire() {   
+    
     if (level == 0){ //first level
         //sets spawn point for level
         spawnX = 6; //sets x position
