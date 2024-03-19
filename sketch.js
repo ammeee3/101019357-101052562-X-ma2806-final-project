@@ -17,7 +17,7 @@ let YOUWINSound;
 let PressurePlateSFX;
 let YouWin;
 let DeathSound;
-
+let direction = 0; //player direction starts at 0 so ghosts don't spawn until player moves
 
 let level = 0; //player starts on the first level
 let lives = 3; //player starts the game with 3 lives
@@ -31,6 +31,8 @@ let playerLeftSprite;
 let playerRightSprite;
 let ghostSprite;
 let ghostSpawnClock;
+let ghostX;
+let ghostY;
 let ghost;
 let ghostSpawnSound;
 
@@ -96,6 +98,7 @@ function preload() {
   victory = loadImage("victory.png");
   gameover = loadImage("game over.png");
   ghostSprite = loadImage("ghost.png");
+  ghostKillSprite = loadImage("ghost.png");
   mainTheme = loadSound("MainTheme.mp3");
   PressurePlateSFX = loadSound("PressurePlateSFX.mp3");
   YouWINSound = loadSound("YOU WIN.mp3");
@@ -119,16 +122,15 @@ function preload() {
 }
 
 function loadLevel() {
+  startGhostSpawn();
   tripwire();
   player = new Player(playerSprite, spawnX, spawnY, tileSize, playerSpeed, tileSize, tileRules); //creates player at the starting position
   }
 
 function setup() {
   createCanvas(600, 1050); //creates canvas so game is visible
-  //timer = millis(); // initialize the timer
-  startGhostSpawn();
   loadLevel(); //loads the tilemap based on what level the player is on
-  startGhostSpawn();
+  //startGhostSpawn();
   mainTheme.loop(); //loop the background music
 }
 
@@ -268,40 +270,52 @@ setDirection() {
           this.dirX = 0;
           this.dirY = -1;
           this.sprite = this.playerUpSprite; //up sprite
+          direction = 1;
+          if (ghostAlive == true){
+            deathCheck();
+            ghostAlive = false;
+          }
       }
 
       if (key === "s") { //if s key is pressed, moves player backwards down the Y axis, and sprite looks in direction of movement
           this.dirX = 0;
           this.dirY = 1; 
           this.sprite = this.playerSprite; //down sprite(default sprite)
+          direction = 2;
       }
 
       if (key === "a") { //if a key is pressed, moves player left along the x axis, and sprite looks in direction of movement
           this.dirX = -1; 
           this.dirY = 0; 
           this.sprite = this.playerLeftSprite; //left sprite
+          direction = 3;
       }
 
       if (key === "d") { //if d key is pressed, moves player right along the x axis, and sprite looks in direction of movement
           this.dirX = 1; 
           this.dirY = 0;
           this.sprite = this.playerRightSprite; //right sprite
+          direction = 4;
       }
 
       if (key === "ArrowUp"){ //player looks north when up arrow pressed
         this.sprite = this.playerUpSprite; //up sprite
+        direction = 1;
       }
 
       if (key === "ArrowLeft"){ //player looks west when left arrow pressed
         this.sprite = this.playerLeftSprite; //left sprite
+        direction = 3;
       }
 
       if (key === "ArrowRight"){ //player looks east when right arrow pressed
         this.sprite = this.playerRightSprite; //right sprite
+        direction = 4;
       }
 
       if (key === "ArrowDown"){ //player looks south when down arrow pressed
         this.sprite = this.playerSprite; //down sprite
+        direction = 2;
       }
 
       if (key === "r") { //game resets when R key is pressed
@@ -309,7 +323,7 @@ setDirection() {
           resetGame();
         }
     } 
-
+      
       this.checkTargetTile(); //checks if tile can be moved into before player is moved after key is pressed
   }
 }
@@ -345,7 +359,7 @@ checkTargetTile() { //check and update players target tile based on its current 
         
         console.log("player 6 pos = ", this.across - 1, this.down - 1);
         //tileRules[this.across][this.down] = 8;
-    } else if (this.tileRules[nextTileVertical][nextTileHorizontal] == 2 || this.tileRules[nextTileVertical][nextTileHorizontal] == 5) { //when you move onto a trap tile, you lose a life and game checks if you have died
+    } else if (this.tileRules[nextTileVertical][nextTileHorizontal] == 2 || this.tileRules[nextTileVertical][nextTileHorizontal] == 5) { //when you move onto a trap/active tripwire tile, you lose a life and game checks if you have died
         this.tx = nextTileHorizontal * this.tileSize;
         this.ty = nextTileVertical * this.tileSize;
         this.isMoving = true;
