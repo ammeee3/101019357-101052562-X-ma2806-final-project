@@ -12,6 +12,11 @@ let textures = [];
 let mainTheme; //declare the variable to hold the background music
 //let ghosts = [];
 //let ghostSize = tileSize;
+let YOULOSESound;
+let PressurePlateSFX;
+let YouWin;
+let DeathSound;
+
 
 let level = 0; //player starts on the first level
 let lives = 3; //player starts the game with 3 lives
@@ -77,6 +82,7 @@ function resetGame() { //activates when the player restarts the game by pressing
   winState = false; //stops player from winning on repeat
   wire = 0;
   startGhostSpawn();
+  mainTheme.loop()
 }
 
 function preload() {
@@ -86,8 +92,14 @@ function preload() {
   playerLeftSprite = loadImage("player_left.png");
   playerRightSprite = loadImage("player_right.png");
   heart = loadImage("heart_big.png"); //updated heart asset
+  victory = loadImage("victory.png");
+  gameover = loadImage("game over.png");
   ghostSprite = loadImage("ghost.png");
   mainTheme = loadSound("MainTheme.mp3");
+  YOULOSESound = loadSound("YOU LOSE.mp3");
+  PressurePlateSFX = loadSound("PressurePlateSFX.mp3");
+  YouWin = loadSound("YOU WIN.mp3");
+  DeathSound = loadSound("DeathSFX.mp3")
 
   //ghostSpawnSound = loadSound("ghostspawn.mp3");
 
@@ -150,7 +162,11 @@ function draw() {
 }
 
 function keyPressed() { //moves player when key pressed
-  player.setDirection();
+  if (key === 'r' || key === 'R') { // check if 'r' or 'R' key is pressed
+    resetGame(); // call resetGame function
+  } else {
+    player.setDirection(); // move player when other keys are pressed
+  }
 }
 
 function currentLives(){ //displays how many lives are left
@@ -174,6 +190,10 @@ function handleLose() { //when called, the loss condition is activated
   loseState = true; 
   level = 0;
   loadLevel();
+  if (loseState) {
+    YOULOSESound.play(); // Only play the sound if loseState is true
+    mainTheme.stop(); // Stop the main theme music
+  }
 }
 
 function handleWin() { //when called, the win condition is activated
@@ -186,26 +206,15 @@ function handleWin() { //when called, the win condition is activated
     wire = 0;
   }
   loadLevel();
+  mainTheme.stop(); // stop the main theme music
 }
 
 function drawLose(){ 
-  background(200, 50, 75); //background colour (red)
-  print("You lose. Press R to play again") //prints to console
-  textSize(60); //sets text size
-  fill(25); //text colour (black)
-  text('You lose.', width/3.5, height/5);  //displays text "You lose."
-  textSize(35); 
-  text('Press R to play again.', width/5, height/3); //displays text "Press R to play again.""
+  image(gameover, 0, 0, width, height); // display the "game over.png" image
 }
 
 function drawWin(){ //add this (rename win)
-  print("You win! Press R to play again.")
-  background(0,255,0); //background colour (green)
-  textSize(60); //add this
-  fill(25,0,0); //text colour (black)
-  text('You win!', width/3.5, height/5); //displays text "You win!"
-  textSize(35); //add this
-  text('Press R to play again.', width/5, height/3); //displays text "Press R to play again.""
+  image(victory, 0, 0, width,height); //display the "victory.png" image
 }
 
 class Player{ //creates player based on the variables given in Player class
