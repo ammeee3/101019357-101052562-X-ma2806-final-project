@@ -164,11 +164,18 @@ function draw() {
 function keyPressed() { //moves player when key pressed
   if (key === 'r' || key === 'R') { // check if 'r' or 'R' key is pressed
     resetGame(); // call resetGame function
+    if (YOULOSESound.isPlaying()) {
+    YOULOSESound.stop(); //stop the lose sound
+    }
   } else {
     player.setDirection(); // move player when other keys are pressed
   }
 }
-
+function stopLoseSound() {
+  if (loseSound.isPlaying()) {
+    loseSound.stop(); // Stop the lose sound if it's playing
+  }
+}
 function currentLives(){ //displays how many lives are left
   textSize(40);
   fill(255);
