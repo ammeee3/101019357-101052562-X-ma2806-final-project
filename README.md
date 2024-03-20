@@ -19,6 +19,8 @@ AMY - Created assets for ghost.png, separated + optimised code, helped come up w
 
 EVERYONE - aided in fixing code
 
+If we have more time, we would have liked to introduce a ghost enemy that would spawn randomly behind the player and kill them if they moved or didn't turn around and face the ghost within a few (probably 5) seconds. Also we would have liked to introduce animations for the player walking, hearts and explosions.
+
 THEMES
 Horror/Thriller
 
