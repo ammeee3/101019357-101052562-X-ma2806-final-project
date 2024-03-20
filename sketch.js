@@ -10,21 +10,18 @@ let numDown = 15; //sets the size of the tile map (10 tiles down)
 let numAcross = 10; //sets the size of the tile map (7 tiles down)
 let textures = [];
 let mainTheme; //declare the variable to hold the background music
-//let ghosts = [];
-//let ghostSize = tileSize;
 let YOULOSESound;
 let YOUWINSound;
 let PressurePlateSFX;
 let YouWin;
 let DeathSound;
+let ExplosionSFX;
+let TripwireSFX;
 let direction = 0; //player direction starts at 0 so ghosts don't spawn until player moves
 
 let level = 0; //player starts on the first level
 let lives = 3; //player starts the game with 3 lives
 let wire = 0; //all tripwires start active
-
-//let timer;
-//let timerDuration = 30000; //30 seconds, milliseconds
 
 let playerUpSprite;
 let playerLeftSprite;
@@ -103,8 +100,9 @@ function preload() {
   PressurePlateSFX = loadSound("PressurePlateSFX.mp3");
   YouWINSound = loadSound("YOU WIN.mp3");
   YOULOSESound = loadSound("YOU LOSE.mp3");
-
-  DeathSound = loadSound("DeathSFX.mp3")
+  ExplosionSFX = loadSound("ExplosionSFX.mp3");
+  TripWireSFX = loadSound("TripWireSFX.mp3");
+  DeathSound = loadSound("DeathSFX.mp3");
 
   //ghostSpawnSound = loadSound("ghostspawn.mp3");
 
@@ -141,15 +139,13 @@ function draw() {
     for (let down = 0; down < numDown; down++) {
       tilemap[across][down].display(); //d
       //tilemap[across][down].debug(); //shows tile grid (can be turned off)
-    //if(millis() - timer > timeDuration) //timer reached its duration
-    //timer = millis(); //resets the timer
     if (ghost) {
       ghost.display();
     }
     }
   }
 
-  player.display();
+  player.display(); 
   player.move();
   currentLives();
 
@@ -157,15 +153,17 @@ function draw() {
   if (loseState){ //calls the draw function to display lose screen when the player has won
     drawLose();
     stopGhostSpawn();
+    //amy
   }
 
   if (winState){ //calls the draw function to display win screen when the player has won
     drawWin();
     stopGhostSpawn();
+    //amy
   }
 }
 
-function keyPressed() { //moves player when key pressed
+function keyPressed() { //moves player when key pressed //amy
   if (key === 'r' || key === 'R') { // check if 'r' or 'R' key is pressed
     resetGame(); // call resetGame function
     if (YOULOSESound.isPlaying()) {
@@ -197,12 +195,13 @@ function currentLives(){ //displays how many lives are left
 }
 
 function deathCheck() { //activates when player moves on to a trap tile
+  DeathSound.play(); //plays death scream
   player = new Player(playerSprite, spawnX, spawnY, tileSize, playerSpeed, tileSize, tileRules); //sends player back to start
   lives = lives - 1; //player loses a life
   if (lives == 0) { //checks if player has run out of lives
     handleLose() //if they have this activates the lose condition
   }
-}
+} /
 
 function handleLose() { //when called, the loss condition is activated
   loseState = true; 
@@ -271,10 +270,6 @@ setDirection() {
           this.dirY = -1;
           this.sprite = this.playerUpSprite; //up sprite
           direction = 1;
-          if (ghostAlive == true){
-            deathCheck();
-            ghostAlive = false;
-          }
       }
 
       if (key === "s") { //if s key is pressed, moves player backwards down the Y axis, and sprite looks in direction of movement
@@ -321,7 +316,7 @@ setDirection() {
       if (key === "r") { //game resets when R key is pressed
         if (winState || loseState) {
           resetGame();
-        }
+        }//amy
     } 
       
       this.checkTargetTile(); //checks if tile can be moved into before player is moved after key is pressed
@@ -353,16 +348,15 @@ checkTargetTile() { //check and update players target tile based on its current 
         this.ty = nextTileVertical * this.tileSize;
         this.isMoving = true;
         wire++;
-        console.log(wire);
-        console.log("blahla", nextTileHorizontal, nextTileVertical);
         tripwire();
-        
-        console.log("player 6 pos = ", this.across - 1, this.down - 1);
+        PressurePlateSFX.play();
+        TripwireSFX.play();
         //tileRules[this.across][this.down] = 8;
     } else if (this.tileRules[nextTileVertical][nextTileHorizontal] == 2 || this.tileRules[nextTileVertical][nextTileHorizontal] == 5) { //when you move onto a trap/active tripwire tile, you lose a life and game checks if you have died
         this.tx = nextTileHorizontal * this.tileSize;
         this.ty = nextTileVertical * this.tileSize;
         this.isMoving = true;
+        ExplosionSFX.play();
         setTimeout(deathCheck, 300);  //player loses a life and dies if lives are 0 (added timeout so you can see player move onto tile)
     } else if (this.tileRules[nextTileVertical][nextTileHorizontal] == 4) {  //moves to next tile if it is an exit tile and activates win condition
         this.tx = nextTileHorizontal * this.tileSize;

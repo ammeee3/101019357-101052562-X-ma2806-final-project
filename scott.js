@@ -1,4 +1,4 @@
-/sprites
+//sprites
 let player;
 let heart;
 let playerSprite;
@@ -9,7 +9,7 @@ let tilemap = [];
 let numDown = 15; //sets the size of the tile map (10 tiles down)
 let numAcross = 10; //sets the size of the tile map (7 tiles down)
 let textures = [];
-let mainTheme; 
+let mainTheme;  
 let YOULOSESound;
 let PressurePlateSFX;
 let YouWin;
