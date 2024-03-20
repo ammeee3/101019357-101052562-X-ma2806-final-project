@@ -16,7 +16,7 @@ helped come up with concept ideas, created moodboard/miro,
 added lines: 17, 18, 19, 61, 62, 63, 78, 105, 106, 176, 177, 178, 179, 203, 215, 221, 308, 313, 314, 330-365.
 213,217,95,96,12,90,118, 167-169
 
-AMY - Created assets for heart.png, hole,png, helped come up with concept ideas, completed the rest of the code (added all lines excluding 17, 18, 19, 61, 62, 63, 78, 105, 106, 176, 177, 178, 179, 203, 215, 221, 308, 313, 314, 330-365.)
+AMY - Created assets for ghost.png, helped come up with concept ideas, created all level design + added all code except (sketch.js: 63, 67, 76, 146-154, player.js: 8, 9, 10, 11, 35, 49, 56, 83-88, levels.js: 3, 8-15, 39, 40, 55, 56, 61, 65, p5.sound.js, p5.sound.min.js, animation.js, preload.js: 3-15, 25, 26, 29-35)
 
 EVERYONE - aided in fixing code
 
