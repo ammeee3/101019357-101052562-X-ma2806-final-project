@@ -127,6 +127,7 @@ class Player{ //creates player based on the variables given in Player class
           this.ty = nextTileVertical * this.tileSize;
           this.isMoving = true;
           ExplosionSFX.play();
+          DeathSound.play(); //plays death scream
           setTimeout(deathCheck, 300);  //player loses a life and dies if lives are 0 (added timeout so you can see player move onto tile)
       } else if (this.tileRules[nextTileVertical][nextTileHorizontal] == 4) {  //moves to next tile if it is an exit tile and activates win condition
           this.tx = nextTileHorizontal * this.tileSize;

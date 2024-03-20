@@ -24,7 +24,6 @@ function currentLives(){ //displays how many lives are left
 }
 
 function deathCheck() { //activates when player moves on to a trap tile
-  DeathSound.play(); //plays death scream
   player = new Player(playerSprite, spawnX, spawnY, tileSize, playerSpeed, tileSize, tileRules); //sends player back to start
   lives = lives - 1; //player loses a life
   if (lives == 0) { //checks if player has run out of lives
