@@ -1,3 +1,5 @@
+//this code was for the enemies, which were meant to spawn behind the player and kill them if they didnt turn around within 5 seconds
+
 let direction = 0; //player direction starts at 0 so ghosts don't spawn until player moves
 let ghostSpawnClock;
 let ghostX;
