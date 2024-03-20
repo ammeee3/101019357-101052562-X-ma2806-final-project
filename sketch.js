@@ -64,10 +64,11 @@ function resetGame() { //activates when the player restarts the game by pressing
 }
 
 function setup() {
+  mainTheme.loop(); //loop the background music
   createCanvas(600, 1050); //creates canvas so game is visible
   loadLevel(); //loads the tilemap based on what level the player is on
   //startGhostSpawn(); //for the ghost enemy
-  mainTheme.loop(); //loop the background music
+  
 }
 
 function draw() {
