@@ -1,3 +1,5 @@
+//this code was to animate the hearts but was not finished
+
 let heartSprite; // variable to store the sprite sheet
 let spriteWidth = 100; // width of each frame in the sprite sheet
 let spriteHeight = 100; // height of each frame in the sprite sheet
