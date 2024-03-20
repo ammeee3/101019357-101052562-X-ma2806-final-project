@@ -1,3 +1,10 @@
+let direction = 0; //player direction starts at 0 so ghosts don't spawn until player moves
+let ghostSpawnClock;
+let ghostX;
+let ghostY;
+let ghost;
+let ghostSpawnSound;
+let ghostSprite;
 
 function spawnGhost(){
     let ghostX = player.across;
