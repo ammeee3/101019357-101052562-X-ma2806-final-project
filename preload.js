@@ -7,7 +7,7 @@ let PressurePlateSFX;
 let YouWin;
 let DeathSound;
 let ExplosionSFX;
-let TripWireSFX;
+let TripwireSFX;
 
 let playerSprite;
 let playerUpSprite;
