@@ -1,7 +1,7 @@
 cave crawler
 
 BY THE CAVE DWELLERS
-MEMBERS: AMY BARCLAY 2407860, SCOTT 2403536, EMILIA ALEKSANDROWICZ 2408023
+MEMBERS: AMY BARCLAY 2407860, SCOTT PETTERSSON 2403536, EMILIA ALEKSANDROWICZ 2408023
 
 OVERVIEW
 Our idea for a game is a cave crawler, with the main goal of the player to escape by navigating through the cave, using your flashlight to avoid traps and deter monsters
