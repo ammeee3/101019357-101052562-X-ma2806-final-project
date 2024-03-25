@@ -1,6 +1,5 @@
 function loadLevel() {
     //startGhostSpawn(); // for the ghost enemy
-    mainTheme.loop();
     tripwire();
     player = new Player(playerSprite, spawnX, spawnY, tileSize, playerSpeed, tileSize, tileRules); //creates player at the starting position
 }
