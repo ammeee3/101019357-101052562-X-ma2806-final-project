@@ -7,7 +7,7 @@ let PressurePlateSFX;
 let YouWin;
 let DeathSound;
 let ExplosionSFX;
-let TripwireSFX;
+let TripWireSFX;
 
 let playerSprite;
 let playerUpSprite;
@@ -28,7 +28,7 @@ function preload() {
     //ghostKillSprite = loadImage("ghost.png"); //for the ghost enemy
     mainTheme = loadSound("MainTheme.mp3");
     PressurePlateSFX = loadSound("PressurePlateSFX.mp3");
-    YouWINSound = loadSound("YOU WIN.mp3");
+    YOUWINSound = loadSound("YOU WIN.mp3");
     YOULOSESound = loadSound("YOU LOSE.mp3");
     ExplosionSFX = loadSound("ExplosionSFX.mp3");
     TripWireSFX = loadSound("TripWireSFX.mp3");
