@@ -120,7 +120,7 @@ class Player{ //creates player based on the variables given in Player class
           wire++;
           tripwire();
           PressurePlateSFX.play();
-          TripwireSFX.play();
+          TripWireSFX.play();
           //tileRules[this.across][this.down] = 8;
       } else if (this.tileRules[nextTileVertical][nextTileHorizontal] == 2 || this.tileRules[nextTileVertical][nextTileHorizontal] == 5) { //when you move onto a trap/active tripwire tile, you lose a life and game checks if you have died
           this.tx = nextTileHorizontal * this.tileSize;
